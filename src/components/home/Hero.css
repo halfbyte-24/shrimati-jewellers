@@ -1,11 +1,13 @@
 .hero {
-  position: relative;
-  min-height: 90vh;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
-  padding-top: var(--spacing-4xl); /* Account for navbar */
+  z-index: 0;
+  padding-bottom: var(--spacing-4xl);
 }
 
 .hero-background {
@@ -30,14 +32,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, rgba(92, 15, 26, 0.85), rgba(58, 8, 16, 0.7));
+  background: rgba(0,0,0,0.1);
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
   color: white;
-  max-width: 800px;
+  width: 100%;
 }
 
 .hero-title {

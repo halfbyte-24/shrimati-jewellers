@@ -1,4 +1,7 @@
 import { supabase } from '../lib/supabase';
+import product1Img from '../assets/products/product_1.jpg';
+import product2Img from '../assets/products/product_2.jpg';
+import product3Img from '../assets/products/product_3.jpg';
 
 const MOCK_PRODUCTS = [
   {
@@ -14,7 +17,7 @@ const MOCK_PRODUCTS = [
     huid: 'ABC123XY',
     is_featured: true,
     price_type: 'Approx. Price',
-    product_images: [{ image_url: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca065b?auto=format&fit=crop&q=80&w=800', is_primary: true }]
+    product_images: [{ image_url: product1Img, is_primary: true }]
   },
   {
     id: '55555555-5555-5555-5555-555555555552',
@@ -28,7 +31,7 @@ const MOCK_PRODUCTS = [
     weight_unit: 'g',
     is_featured: true,
     price_type: 'Price on Request',
-    product_images: [{ image_url: 'https://images.unsplash.com/photo-1605100804763-247f67b6348e?auto=format&fit=crop&q=80&w=800', is_primary: true }]
+    product_images: [{ image_url: product2Img, is_primary: true }]
   },
   {
     id: '55555555-5555-5555-5555-555555555553',
@@ -42,7 +45,7 @@ const MOCK_PRODUCTS = [
     weight_unit: 'g',
     is_featured: false,
     price_type: 'Approx. Price',
-    product_images: [{ image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800', is_primary: true }]
+    product_images: [{ image_url: product3Img, is_primary: true }]
   }
 ];
 
