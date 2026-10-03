@@ -15,14 +15,14 @@ export default function Hero() {
   return (
     <section className={`hero bg-burgundy ${loaded ? 'hero-loaded' : ''}`}>
       <div className="hero-background">
-        <img 
-          src={heroImg} 
-          alt="Srimati Jewelers Collection" 
+        <img
+          src={heroImg}
+          alt="Srimati Jewelers Collection"
           className="hero-image"
         />
         <div className="hero-overlay"></div>
       </div>
-      
+
       <div className="container hero-content text-center">
         <div className="hero-actions flex justify-center gap-md">
           <Link to="/collections" className="btn btn-primary bg-secondary text-black hover-opacity">Explore Collections</Link>
