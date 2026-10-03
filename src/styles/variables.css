@@ -1,19 +1,35 @@
 :root {
-  /* Brand Colors */
-  --color-primary: #5c0f1a; /* Deep Burgundy/Wine */
-  --color-primary-dark: #3a0810;
-  --color-secondary: #c59b4c; /* Antique Gold / Champagne */
-  --color-secondary-light: #dfbd79;
+  /* Brand Colors (New Luxury Palette) */
+  --burgundy-deep: #35070F;
+  --burgundy: #5A0B17;
+  --burgundy-soft: #741B28;
+
+  --gold: #C79A3B;
+  --gold-bright: #E0B84F;
+  --gold-soft: #E8C979;
+
+  --champagne: #F1DDAA;
+  --ivory: #F7F1E5;
+  --cream: #EFE3CC;
+
+  --ink: #211A16;
+  --dark: #120D0D;
+
+  /* Compatibility Aliases */
+  --color-primary: var(--burgundy);
+  --color-primary-dark: var(--burgundy-deep);
+  --color-secondary: var(--gold);
+  --color-secondary-light: var(--gold-soft);
   --color-secondary-dark: #96702e;
 
   /* Neutrals */
-  --color-black: #111111;
-  --color-text-main: #333333;
-  --color-text-muted: #666666;
-  --color-background: #ffffff;
-  --color-background-alt: #fcf9f2; /* Warm beige */
-  --color-border: #e6e6e6;
-  --color-border-gold: rgba(197, 155, 76, 0.3);
+  --color-black: var(--dark);
+  --color-text-main: var(--ink);
+  --color-text-muted: #5a544f;
+  --color-background: var(--ivory);
+  --color-background-alt: var(--cream);
+  --color-border: rgba(33, 26, 22, 0.1);
+  --color-border-gold: rgba(199, 154, 59, 0.3);
 
   /* Spacing */
   --spacing-xs: 0.25rem;
