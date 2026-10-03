@@ -1,0 +1,46 @@
+/* Responsive Breakpoints */
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .section {
+    padding: var(--spacing-3xl) 0;
+  }
+  .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+  .section {
+    padding: var(--spacing-2xl) 0;
+  }
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .text-6xl { font-size: 3rem; }
+  .text-5xl { font-size: 2.5rem; }
+  .text-4xl { font-size: 2rem; }
+  
+  /* Utilities for mobile */
+  .hidden-md {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hidden-md-up {
+    display: none !important;
+  }
+}
