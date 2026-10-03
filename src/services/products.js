@@ -68,7 +68,7 @@ export async function getFeaturedProducts() {
   }
 }
 
-export async function getProducts({ parentCategoryId, childCategoryId, searchQuery } = {}) {
+export async function getProducts({ parentCategoryId, childCategoryId, searchQuery, sort } = {}) {
   try {
     let query = supabase
       .from('products')
@@ -87,7 +87,31 @@ export async function getProducts({ parentCategoryId, childCategoryId, searchQue
       query = query.or(`name.ilike.%${searchQuery}%,product_code.ilike.%${searchQuery}%,collection_name.ilike.%${searchQuery}%`);
     }
     
-    query = query.order('display_order', { ascending: true });
+    // Apply sorting
+    if (sort) {
+      switch (sort) {
+        case 'featured':
+          query = query.order('is_featured', { ascending: false }).order('display_order', { ascending: true });
+          break;
+        case 'newest':
+          query = query.order('created_at', { ascending: false });
+          break;
+        case 'price-asc':
+          // Need to specify nulls first/last for price on request
+          query = query.order('base_price', { ascending: true, nullsFirst: false });
+          break;
+        case 'price-desc':
+          query = query.order('base_price', { ascending: false, nullsFirst: false });
+          break;
+        case 'name-asc':
+          query = query.order('name', { ascending: true });
+          break;
+        default:
+          query = query.order('display_order', { ascending: true });
+      }
+    } else {
+      query = query.order('display_order', { ascending: true });
+    }
     
     const { data, error } = await query;
     if (error) throw error;
@@ -101,6 +125,10 @@ export async function getProducts({ parentCategoryId, childCategoryId, searchQue
     if (searchQuery) {
       const lower = searchQuery.toLowerCase();
       mock = mock.filter(p => p.name.toLowerCase().includes(lower) || p.product_code.toLowerCase().includes(lower));
+    }
+    if (sort) {
+      if (sort === 'name-asc') mock.sort((a,b) => a.name.localeCompare(b.name));
+      if (sort === 'featured') mock.sort((a,b) => (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0));
     }
     return mock;
   }

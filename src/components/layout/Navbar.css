@@ -10,7 +10,8 @@
 }
 
 .navbar-transparent {
-  background-color: var(--color-secondary-light); /* Golden color */
+  background-color: var(--color-secondary-light);
+  /* Golden color */
   color: var(--color-primary-dark);
   box-shadow: var(--shadow-md);
 }
@@ -72,7 +73,8 @@
   transition: width var(--transition-normal);
 }
 
-.nav-link:hover::after, .nav-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
   width: 100%;
 }
 

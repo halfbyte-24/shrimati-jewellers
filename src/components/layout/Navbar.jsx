@@ -27,8 +27,8 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <nav className="navbar-links hidden-md">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
+            <Link
+              key={link.name}
               to={link.path}
               className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
             >
@@ -46,8 +46,8 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button 
-          className="mobile-toggle hidden-md-up" 
+        <button
+          className="mobile-toggle hidden-md-up"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle Menu"
         >
@@ -60,8 +60,8 @@ export default function Navbar() {
         <div className="mobile-menu hidden-md-up">
           <nav className="mobile-nav">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
+              <Link
+                key={link.name}
                 to={link.path}
                 className="mobile-nav-link"
                 onClick={() => setIsMobileMenuOpen(false)}
