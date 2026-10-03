@@ -1,0 +1,41 @@
+.image-fallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cream), var(--ivory));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--burgundy-soft);
+  text-align: center;
+  border-radius: inherit;
+  aspect-ratio: 4/5; /* default aspect ratio */
+}
+
+.fallback-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.fallback-icon {
+  opacity: 0.5;
+  color: var(--gold);
+}
+
+.fallback-text {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.image-with-fallback {
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.image-with-fallback.loaded {
+  opacity: 1;
+}

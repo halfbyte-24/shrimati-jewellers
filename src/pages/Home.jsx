@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import Hero from '../components/home/Hero';
+import CategoryMarquee from '../components/home/CategoryMarquee';
 import FeaturedProducts from '../components/home/FeaturedProducts';
 import ExploreCollections from '../components/home/ExploreCollections';
 import BrandStory from '../components/home/BrandStory';
+import ScrollReveal from '../components/common/ScrollReveal';
 
 export default function Home() {
   useEffect(() => {
@@ -13,9 +15,19 @@ export default function Home() {
     <div className="page-home">
       <Hero />
       <div className="home-content-curtain">
-        <FeaturedProducts />
-        <ExploreCollections />
-        <BrandStory />
+        <CategoryMarquee />
+        
+        <ScrollReveal>
+          <FeaturedProducts />
+        </ScrollReveal>
+        
+        <ScrollReveal>
+          <ExploreCollections />
+        </ScrollReveal>
+        
+        <ScrollReveal>
+          <BrandStory />
+        </ScrollReveal>
       </div>
     </div>
   );
