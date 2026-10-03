@@ -12,9 +12,11 @@ export default function Home() {
   return (
     <div className="page-home">
       <Hero />
-      <FeaturedProducts />
-      <ExploreCollections />
-      <BrandStory />
+      <div className="home-content-curtain">
+        <FeaturedProducts />
+        <ExploreCollections />
+        <BrandStory />
+      </div>
     </div>
   );
 }

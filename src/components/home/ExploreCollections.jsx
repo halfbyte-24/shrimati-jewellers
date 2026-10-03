@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getParentCategories } from '../../services/categories';
+import product1Img from '../../assets/products/product_1.jpg';
+import product2Img from '../../assets/products/product_2.jpg';
+import product3Img from '../../assets/products/product_3.jpg';
 import './ExploreCollections.css';
 
 export default function ExploreCollections() {
@@ -15,7 +18,7 @@ export default function ExploreCollections() {
   }, []);
 
   return (
-    <section className="section bg-golden-ornate explore-collections">
+    <section className="section explore-collections">
       <div className="container">
         <div className="flex justify-between items-center mb-xl flex-wrap gap-md">
           <div>
@@ -36,7 +39,7 @@ export default function ExploreCollections() {
             >
               <div className="collection-img-wrap">
                 <img 
-                  src={`https://images.unsplash.com/photo-${category.slug === 'gold' ? '1605100804763-247f67b6348e' : '1535632066927-ab7c9ab60908'}?auto=format&fit=crop&q=80&w=600`}
+                  src={category.slug === 'gold' ? product2Img : product3Img}
                   alt={category.name}
                   className="collection-img"
                   loading="lazy"
@@ -51,7 +54,7 @@ export default function ExploreCollections() {
           {/* Static cards for demonstration of the layout */}
           <Link to="/collections" className="collection-card">
               <div className="collection-img-wrap">
-                <img src="https://images.unsplash.com/photo-1599643478524-fb66f7ca065b?auto=format&fit=crop&q=80&w=600" alt="Diamond" className="collection-img" loading="lazy" />
+                <img src={product1Img} alt="Diamond" className="collection-img" loading="lazy" />
               </div>
               <div className="collection-card-footer flex justify-between items-center">
                 <h3 className="text-xl text-white m-0 font-serif">Diamond</h3>
@@ -60,7 +63,7 @@ export default function ExploreCollections() {
           </Link>
           <Link to="/collections" className="collection-card">
               <div className="collection-img-wrap">
-                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=600" alt="Gold + Diamond" className="collection-img" loading="lazy" />
+                <img src={product2Img} alt="Gold + Diamond" className="collection-img" loading="lazy" />
               </div>
               <div className="collection-card-footer flex justify-between items-center">
                 <h3 className="text-xl text-white m-0 font-serif">Gold + Diamond</h3>

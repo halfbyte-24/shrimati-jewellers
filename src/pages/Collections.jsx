@@ -80,7 +80,7 @@ export default function Collections() {
 
   return (
     <div className="page-collections">
-      <div className="collections-header bg-golden-ornate py-3xl text-center">
+      <div className="collections-header py-3xl text-center">
         <h1 className="text-5xl text-black">Our Collections</h1>
         <p className="text-black max-w-2xl mx-auto mt-md px-md">
           Explore our wide range of exquisitely crafted jewelry. Filter by category to find your perfect piece.
