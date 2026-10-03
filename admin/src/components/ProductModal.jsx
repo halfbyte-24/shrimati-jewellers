@@ -182,10 +182,50 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
 
     try {
       // 1. Save Product
-      const productPayload = { ...formData }
-      // Convert empty strings to null for numeric fields
-      if (productPayload.price === '') productPayload.price = null
-      if (productPayload.weight_value === '') productPayload.weight_value = null
+      // Explicitly construct payload to prevent joined fields (like product_images) from breaking the schema
+      const {
+        parent_category_id,
+        child_category_id,
+        name,
+        slug,
+        product_code,
+        description,
+        collection_name,
+        design_name,
+        finish,
+        purity,
+        weight_value,
+        weight_unit,
+        huid,
+        price,
+        price_type,
+        is_available,
+        is_published,
+        is_featured,
+        display_order
+      } = formData
+
+      const productPayload = {
+        parent_category_id,
+        child_category_id,
+        name,
+        slug,
+        product_code,
+        description,
+        collection_name,
+        design_name,
+        finish,
+        purity,
+        weight_value: weight_value === '' ? null : weight_value,
+        weight_unit,
+        huid,
+        price: price === '' ? null : price,
+        price_type,
+        is_available,
+        is_published,
+        is_featured,
+        display_order
+      }
       
       let productId = initialData?.id
       

@@ -16,7 +16,6 @@ export default function AdminLayout({ children }) {
   }
 
   const navItems = [
-    { to: '/admin', icon: <LayoutDashboard size={20} />, label: 'Dashboard', exact: true },
     { to: '/admin/categories', icon: <List size={20} />, label: 'Categories' },
     { to: '/admin/products', icon: <Package size={20} />, label: 'Products' },
     { to: '/admin/settings', icon: <Settings size={20} />, label: 'Settings' },
