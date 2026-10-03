@@ -145,9 +145,18 @@ export async function getProductBySlug(slug) {
       
     if (error) throw error;
     
-    // ensure images are sorted
+    // ensure images are sorted and URLs are public
     if (data && data.product_images) {
       data.product_images.sort((a, b) => (b.is_primary ? 1 : 0) - (a.is_primary ? 1 : 0) || a.display_order - b.display_order);
+      data.product_images = data.product_images.map(img => {
+        if (img.image_url && !img.image_url.startsWith('http') && !img.image_url.startsWith('/')) {
+          return {
+            ...img,
+            image_url: supabase.storage.from('product-images').getPublicUrl(img.image_url).data.publicUrl
+          };
+        }
+        return img;
+      });
     }
     return data;
   } catch (error) {
@@ -168,6 +177,15 @@ function processProductsImages(products) {
   return products.map(product => {
     if (product.product_images) {
       product.product_images.sort((a, b) => (b.is_primary ? 1 : 0) - (a.is_primary ? 1 : 0) || a.display_order - b.display_order);
+      product.product_images = product.product_images.map(img => {
+        if (img.image_url && !img.image_url.startsWith('http') && !img.image_url.startsWith('/')) {
+          return {
+            ...img,
+            image_url: supabase.storage.from('product-images').getPublicUrl(img.image_url).data.publicUrl
+          };
+        }
+        return img;
+      });
     }
     return product;
   });
