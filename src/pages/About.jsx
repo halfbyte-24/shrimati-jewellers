@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { MessageCircle } from 'lucide-react';
+import ScrollReveal from '../components/common/ScrollReveal';
 import aboutImg from '../assets/about-img.jpg';
+import './About.css';
+
+const DAYS_OF_WEEK = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export default function About() {
   const [settings, setSettings] = useState(null);
@@ -20,11 +23,11 @@ export default function About() {
         .select('*')
         .eq('id', 1)
         .single();
-      
+
       if (error) throw error;
       setSettings(data);
     } catch (err) {
-      console.error("Error fetching store settings:", err);
+      console.error('Error fetching store settings:', err);
     } finally {
       setLoading(false);
     }
@@ -32,104 +35,137 @@ export default function About() {
 
   if (loading) {
     return (
-      <div className="page-about pt-4xl min-h-screen flex items-center justify-center">
-        <div className="text-muted">Loading our story...</div>
+      <div className="page-about bg-ivory" style={{ minHeight: '100vh', paddingTop: 'var(--spacing-4xl)' }}>
+        <div className="container" style={{ paddingTop: 'var(--spacing-4xl)', textAlign: 'center' }}>
+          <p className="text-muted">Loading our story…</p>
+        </div>
       </div>
     );
   }
 
-  // Fallbacks in case settings is empty/missing
-  const storeName = settings?.store_name || "Shrimati Jewellers";
-  const tagline = settings?.tagline || "Timeless Craft. Modern Elegance.";
-  const shortDesc = settings?.short_description || "For generations, we have been a symbol of trust, purity, and unparalleled craftsmanship.";
-  const fullDesc = settings?.description || shortDesc;
+  // Dynamic values with sensible fallbacks
+  const storeName = settings?.store_name || 'Shrimati Jewellers';
+  const tagline = settings?.tagline || '';
+  const shortDesc = settings?.short_description || '';
+  const fullDesc = settings?.description || '';
 
   const hasSocials = settings?.instagram_url || settings?.facebook_url || settings?.youtube_url || settings?.whatsapp_url;
 
   return (
-    <div className="page-about pt-4xl">
-      <div className="container mt-2xl mb-4xl">
-        
-        {/* Intro Section */}
-        <div className="text-center max-w-2xl mx-auto mb-4xl">
-          <span className="text-secondary tracking-wider text-sm uppercase">About Us</span>
-          <h1 className="text-5xl mt-sm mb-lg text-primary" style={{ textTransform: 'uppercase' }}>
-            {storeName}
-          </h1>
+    <div className="page-about bg-ivory">
+
+      {/* ── Page Hero (matches CollectionHero pattern) ─── */}
+      <section className="about-hero" aria-labelledby="about-heading">
+        <div className="about-hero-bg" aria-hidden="true"></div>
+        <div className="container relative z-10 text-center">
+          <h1 id="about-heading" className="text-5xl text-primary-dark font-serif mb-md">About Us</h1>
           {tagline && (
-            <h2 className="text-2xl mb-md text-primary font-serif" style={{ fontStyle: 'italic' }}>
+            <p className="text-lg text-muted max-w-2xl mx-auto" style={{ fontStyle: 'italic', fontFamily: 'var(--font-serif)' }}>
               {tagline}
-            </h2>
+            </p>
           )}
-          <p className="text-lg text-muted">
-            {shortDesc}
+          {!tagline && shortDesc && (
+            <p className="text-lg text-muted max-w-2xl mx-auto">
+              {shortDesc}
+            </p>
+          )}
+          <div className="hero-divider mt-lg mb-lg">
+            <span className="hero-divider-line"></span>
+            <span className="hero-divider-icon">✦</span>
+            <span className="hero-divider-line"></span>
+          </div>
+          <p className="text-sm tracking-wider uppercase text-secondary-dark">
+            Heritage • Craftsmanship • Trust
           </p>
         </div>
+      </section>
 
-        {/* Editorial Section */}
-        <div className="grid grid-cols-2 gap-4xl items-center mb-4xl">
-          <div className="about-img-wrap" style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', maxWidth: '380px' }}>
-            {/* Using the user-provided jewelry crafting image. */}
-            <img 
-              src={aboutImg} 
-              alt={storeName} 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', aspectRatio: '4/5', display: 'block' }} 
-            />
-          </div>
-          <div className="about-story">
-            <h2 className="text-3xl mb-md text-primary font-serif">Our Story</h2>
-            {/* Render full description, supporting basic line breaks if present */}
-            <div className="text-muted text-lg" style={{ lineHeight: '1.8' }}>
-              {fullDesc.split('\n').map((paragraph, idx) => (
-                <p key={idx} className="mb-md">{paragraph}</p>
-              ))}
-            </div>
-            
-            <div className="mt-xl flex flex-wrap gap-md">
-              <Link 
-                to="/collections" 
-                style={{ backgroundColor: '#742222', color: '#ffffff', padding: '12px 32px', border: '1px solid #742222', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', fontWeight: '500', transition: 'all 0.3s ease', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                Explore Collections
+      {/* ── Main Content ──────────────────────────────── */}
+      <div className="container mt-2xl mb-4xl">
+
+        {/* SECTION 1 — Our Story (Editorial Two-Column) */}
+        {fullDesc && (
+          <ScrollReveal>
+            <section className="about-story-section" aria-labelledby="about-story-heading">
+              <div className="about-image-wrap">
+                <img
+                  src={aboutImg}
+                  alt={`${storeName} — craftsmanship`}
+                  className="about-image"
+                  loading="lazy"
+                />
+              </div>
+              <div className="about-story-content">
+                <h2 id="about-story-heading">Our Story</h2>
+                <div className="about-story-text">
+                  {fullDesc.split('\n').filter(p => p.trim()).map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </ScrollReveal>
+        )}
+
+        {/* SECTION 2 — Brand Information */}
+        {shortDesc && fullDesc && shortDesc !== fullDesc && (
+          <ScrollReveal>
+            <section className="about-brand-section" aria-labelledby="about-brand-heading">
+              <div className="about-brand-content">
+                <h2 id="about-brand-heading">Crafted With Trust</h2>
+                <div className="about-brand-description">
+                  <p>{shortDesc}</p>
+                </div>
+              </div>
+            </section>
+          </ScrollReveal>
+        )}
+
+        {/* SECTION 3 — Social Presence */}
+        {hasSocials && (
+          <ScrollReveal>
+            <section className="about-social-section" aria-labelledby="about-social-heading">
+              <h3 id="about-social-heading">Connect With Us</h3>
+              <div className="about-social-links">
+                {settings?.instagram_url && (
+                  <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Follow us on Instagram">
+                    Instagram
+                  </a>
+                )}
+                {settings?.facebook_url && (
+                  <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Follow us on Facebook">
+                    Facebook
+                  </a>
+                )}
+                {settings?.youtube_url && (
+                  <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Watch us on YouTube">
+                    YouTube
+                  </a>
+                )}
+                {settings?.whatsapp_url && (
+                  <a href={settings.whatsapp_url} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Chat with us on WhatsApp">
+                    WhatsApp
+                  </a>
+                )}
+              </div>
+            </section>
+          </ScrollReveal>
+        )}
+
+        {/* SECTION 4 — Final CTA */}
+        <ScrollReveal>
+          <section className="about-cta-section">
+            <p>Discover our collections or visit us to find the piece that tells your story.</p>
+            <div className="about-cta-actions">
+              <Link to="/collections" className="btn btn-outline-burgundy">
+                Explore Collections <span className="btn-arrow">&rarr;</span>
               </Link>
-              <Link 
-                to="/contact" 
-                style={{ backgroundColor: 'transparent', color: '#742222', padding: '12px 32px', border: '1px solid #742222', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '14px', fontWeight: '500', transition: 'all 0.3s ease', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
-              >
+              <Link to="/contact" className="btn btn-outline-gold" style={{ backgroundColor: 'var(--burgundy-deep)', borderColor: 'var(--gold)' }}>
                 Visit Our Store
               </Link>
             </div>
-          </div>
-        </div>
-
-        {/* Social Media Section */}
-        {hasSocials && (
-          <div className="text-center mt-4xl pt-2xl" style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-            <h3 className="text-xl mb-md text-primary font-serif">Connect With Us</h3>
-            <div className="flex justify-center gap-md">
-              {settings?.instagram_url && (
-                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-primary transition-colors uppercase text-sm tracking-wider mx-xs">
-                  Instagram
-                </a>
-              )}
-              {settings?.facebook_url && (
-                <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-primary transition-colors uppercase text-sm tracking-wider mx-xs">
-                  Facebook
-                </a>
-              )}
-              {settings?.youtube_url && (
-                <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-primary transition-colors uppercase text-sm tracking-wider mx-xs">
-                  YouTube
-                </a>
-              )}
-              {settings?.whatsapp_url && (
-                <a href={settings.whatsapp_url} target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-primary transition-colors uppercase text-sm tracking-wider mx-xs">
-                  WhatsApp
-                </a>
-              )}
-            </div>
-          </div>
-        )}
+          </section>
+        </ScrollReveal>
 
       </div>
     </div>

@@ -1,0 +1,197 @@
+/* ═══════════════════════════════════════════
+   Contact Us — Page Styles
+   Design language aligned with CollectionHero
+   ═══════════════════════════════════════════ */
+
+/* ── Page Hero ───────────────────────────── */
+.contact-hero {
+  position: relative;
+  padding: var(--spacing-4xl) 0 var(--spacing-3xl);
+  background-color: var(--cream);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/src/assets/backgrounds/bgimg.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
+/* ── Contact Grid ────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  padding: var(--spacing-3xl) 0;
+  align-items: start;
+}
+
+/* ── Contact Info Card ───────────────────── */
+.contact-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.contact-info-card h2 {
+  color: var(--color-primary);
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+/* ── Contact Row ─────────────────────────── */
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.contact-row-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--color-secondary);
+  margin-top: 2px;
+}
+
+.contact-row-content h3 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.contact-row-content p,
+.contact-row-content a {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.contact-row-content a {
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.contact-row-content a:hover {
+  color: var(--color-primary);
+}
+
+/* ── Business Hours Table ────────────────── */
+.business-hours-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.business-hours-table tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.business-hours-table tr:last-child {
+  border-bottom: none;
+}
+
+.business-hours-table td {
+  padding: 8px 0;
+  font-size: 0.925rem;
+  color: var(--color-text-muted);
+  vertical-align: top;
+}
+
+.business-hours-table td:first-child {
+  text-transform: capitalize;
+  font-weight: 500;
+  color: var(--color-text-main);
+  padding-right: var(--spacing-lg);
+  width: 120px;
+}
+
+.business-hours-table .closed-text {
+  font-style: italic;
+  opacity: 0.6;
+}
+
+/* ── Map Container ───────────────────────── */
+.contact-map-container {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  min-height: 480px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.contact-map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  pointer-events: none;
+}
+
+.contact-map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+/* ── Directions Link ─────────────────────── */
+.contact-directions {
+  padding: var(--spacing-2xl) 0;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.contact-directions p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 992px) {
+  .contact-grid {
+    gap: var(--spacing-2xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-hero {
+    padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  .contact-map-container {
+    min-height: 320px;
+    height: 320px;
+  }
+
+  .contact-info-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .contact-directions {
+    padding: var(--spacing-lg) 0;
+  }
+}
