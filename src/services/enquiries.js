@@ -2,7 +2,7 @@
 // For now, it simply opens a WhatsApp link or mailto link.
 
 export function generateWhatsAppLink(product, message = '') {
-  const phoneNumber = '919830000000'; // Replace with actual WhatsApp number from config
+  const phoneNumber = '919242276397'; // Actual WhatsApp number
   const text = message || `Hello Srimati Jewelers, I would like to enquire about:
 Product: ${product.name}
 Code: ${product.product_code || 'N/A'}

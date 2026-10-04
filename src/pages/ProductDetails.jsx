@@ -34,8 +34,8 @@ export default function ProductDetails() {
   );
 
   return (
-    <div className="page-product pt-4xl">
-      <div className="container mt-2xl mb-4xl">
+    <div className="page-product pt-3xl">
+      <div className="container mt-xl mb-3xl">
         {/* Breadcrumb */}
         <div className="breadcrumb mb-xl text-sm text-muted">
           <Link to="/">Home</Link> / <Link to="/collections">Collections</Link> / <Link to={`/collections/${product.parent_categories?.name?.toLowerCase()}`}>{product.parent_categories?.name}</Link> / <span>{product.name}</span>
@@ -64,22 +64,22 @@ export default function ProductDetails() {
 
           {/* Info */}
           <div className="product-info-wrap">
-            <span className="text-secondary tracking-wider text-sm uppercase">
+            <span className="text-secondary tracking-wider text-xs uppercase font-medium">
               {product.parent_categories?.name} 
               {product.child_categories?.name ? ` • ${product.child_categories.name}` : ''}
               {product.sub_categories?.name ? ` • ${product.sub_categories.name}` : ''}
             </span>
-            <h1 className="text-4xl mt-xs mb-sm text-primary">{product.name}</h1>
-            {product.product_code && <p className="text-sm text-muted mb-lg">Code: {product.product_code}</p>}
+            <h1 className="text-2xl mt-sm mb-md text-primary font-serif" style={{color: 'var(--burgundy-deep)', fontSize: '2.2rem', lineHeight: '1.2'}}>{product.name}</h1>
+            {product.product_code && <p className="text-xs text-muted mb-lg" style={{color: '#6d5b50'}}>Code: {product.product_code}</p>}
             
             {product.description && (
-              <p className="product-description mb-xl text-muted leading-relaxed">
+              <p className="product-description mb-lg text-sm text-muted leading-relaxed">
                 {product.description}
               </p>
             )}
 
-            <div className="product-attributes mb-xl">
-              <h4 className="font-sans text-sm tracking-wider uppercase mb-md border-b pb-xs">Details</h4>
+            <div className="product-attributes mb-xl mt-lg">
+              <h4 className="font-sans text-xs tracking-wider uppercase mb-md border-b pb-sm" style={{color: 'var(--burgundy-deep)'}}>Details</h4>
               <ul className="attribute-list">
                 {product.collection_name && <li><span className="attr-label">Collection:</span> <span className="attr-val">{product.collection_name}</span></li>}
                 {product.design_name && <li><span className="attr-label">Design:</span> <span className="attr-val">{product.design_name}</span></li>}
@@ -90,17 +90,17 @@ export default function ProductDetails() {
               </ul>
             </div>
 
-            <div className="product-actions border-t pt-xl mt-xl">
-              {product.price_type && <p className="text-lg font-medium mb-md">{product.price_type}</p>}
+            <div className="product-actions mt-2xl pt-xl border-t">
+              {product.price_type && <p className="text-md font-medium mb-sm" style={{color: 'var(--burgundy-deep)'}}>{product.price_type}</p>}
               <a 
                 href={generateWhatsAppLink(product)} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="btn btn-primary w-full text-center"
+                className="btn-enquire-product"
               >
-                Enquire About This Piece
+                Enquire via WhatsApp &rarr;
               </a>
-              <p className="text-xs text-muted mt-sm text-center">Contact us via WhatsApp for precise pricing and availability.</p>
+              <p className="text-xs mt-md" style={{color: '#6d5b50'}}>Contact us via WhatsApp for precise pricing and availability.</p>
             </div>
           </div>
         </div>
