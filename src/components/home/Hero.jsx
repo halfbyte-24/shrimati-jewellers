@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './Hero.css';
 import heroImg from '../../assets/Hero.jpeg';
 
+import heroImgMobile from '../../assets/Hero-mobile.png';
+
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
 
@@ -15,11 +17,15 @@ export default function Hero() {
   return (
     <section className={`hero bg-burgundy ${loaded ? 'hero-loaded' : ''}`}>
       <div className="hero-background">
-        <img
-          src={heroImg}
-          alt="Srimati Jewelers Collection"
-          className="hero-image"
-        />
+        <picture>
+          <source media="(max-aspect-ratio: 3/4) and (max-width: 768px)" srcSet={heroImgMobile} />
+          <source media="(max-width: 480px)" srcSet={heroImgMobile} />
+          <img
+            src={heroImg}
+            alt="Srimati Jewelers Collection"
+            className="hero-image"
+          />
+        </picture>
         <div className="hero-overlay"></div>
       </div>
 

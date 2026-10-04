@@ -1,14 +1,22 @@
-.hero {
+.hero-overlay-container {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100svh;
+  height: calc(100vh + 40px);
+  height: calc(100svh + 40px);
+  min-height: 500px;
+  z-index: 0;
+}
+
+.hero {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   z-index: 0;
-  padding-bottom: var(--spacing-4xl);
 }
 
 .hero-background {
@@ -75,4 +83,27 @@
 
 .max-w-2xl {
   max-width: 42rem;
+}
+
+@media (max-width: 992px) {
+  .hero-overlay-container {
+    /* Ensures we don't shrink the hero below a reasonable minimum, but mostly rely on svh */
+    min-height: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-overlay-container {
+    min-height: 500px;
+  }
+  .hero-image {
+    object-fit: contain;
+    /* On mobile, prefer contain to guarantee 100% artwork visibility, using burgundy background to fill differences */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-overlay-container {
+    min-height: 480px;
+  }
 }

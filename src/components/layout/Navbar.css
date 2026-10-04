@@ -189,11 +189,28 @@
 /* ──────────────────────────────────
    Responsive Logo Sizing
    ────────────────────────────────── */
+@media (max-width: 992px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .navbar-logo-img {
+    height: 48px;
+  }
+  .navbar {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+@media (min-width: 993px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar-logo-img {
-    height: 44px;
+    height: 40px;
   }
-
   .navbar {
     padding: var(--spacing-xs) var(--spacing-md);
   }

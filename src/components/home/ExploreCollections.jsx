@@ -10,10 +10,11 @@ export default function ExploreCollections() {
   useEffect(() => {
     async function loadCategories() {
       const pCats = await getParentCategories();
-      const cCats = await getChildCategories(); // gets all child categories
+      const cCats = await getChildCategories();
 
       const displayableCategories = cCats.map(child => {
         const parent = pCats.find(p => p.id === child.parent_category_id);
+
         return {
           ...child,
           parentSlug: parent?.slug || 'gold',
@@ -23,19 +24,31 @@ export default function ExploreCollections() {
 
       setCategories(displayableCategories);
     }
+
     loadCategories();
   }, []);
 
   return (
     <section className="section explore-collections">
       <div className="container">
+
         {/* Header */}
         <div className="explore-header flex justify-between items-end flex-wrap gap-md mb-md">
           <div>
-            <span className="text-xs uppercase tracking-wider text-gold mb-xs block">Explore Our</span>
-            <h2 className="text-3xl md:text-4xl text-burgundy-deep font-serif m-0">Collections</h2>
+            <span className="text-xs uppercase tracking-wider text-gold mb-xs block">
+              Explore Our
+            </span>
+
+            <h2 className="text-3xl md:text-4xl text-burgundy-deep font-serif m-0">
+              Collections
+            </h2>
           </div>
-          <Link to="/collections" className="btn btn-outline-burgundy hidden-md" style={{ height: '42px', padding: '0 24px', fontSize: '11px' }}>
+
+          {/* Desktop View All */}
+          <Link
+            to="/collections"
+            className="btn btn-outline-burgundy desktop-only"
+          >
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>
         </div>
@@ -52,11 +65,15 @@ export default function ExploreCollections() {
         </div>
 
         {/* Mobile View All Button */}
-        <div className="mt-xl text-center hidden-md-up">
-          <Link to="/collections" className="btn btn-outline-burgundy" style={{ height: '42px', padding: '0 24px', fontSize: '11px' }}>
+        <div className="mt-xl text-center mobile-only">
+          <Link
+            to="/collections"
+            className="btn btn-outline-burgundy"
+          >
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>
         </div>
+
       </div>
     </section>
   );

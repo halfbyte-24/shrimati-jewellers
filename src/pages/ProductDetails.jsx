@@ -64,7 +64,11 @@ export default function ProductDetails() {
 
           {/* Info */}
           <div className="product-info-wrap">
-            <span className="text-secondary tracking-wider text-sm uppercase">{product.parent_categories?.name} • {product.child_categories?.name}</span>
+            <span className="text-secondary tracking-wider text-sm uppercase">
+              {product.parent_categories?.name} 
+              {product.child_categories?.name ? ` • ${product.child_categories.name}` : ''}
+              {product.sub_categories?.name ? ` • ${product.sub_categories.name}` : ''}
+            </span>
             <h1 className="text-4xl mt-xs mb-sm text-primary">{product.name}</h1>
             {product.product_code && <p className="text-sm text-muted mb-lg">Code: {product.product_code}</p>}
             

@@ -8,6 +8,7 @@ const MOCK_PRODUCTS = [
     id: '55555555-5555-5555-5555-555555555551',
     parent_category_id: '11111111-1111-1111-1111-111111111111',
     child_category_id: '33333333-3333-3333-3333-333333333332',
+    sub_category_id: null,
     name: 'Sachin Gems Mixed Chain',
     slug: 'sachin-gems-mixed-chain',
     product_code: 'SJ-GOLD-001',
@@ -23,6 +24,7 @@ const MOCK_PRODUCTS = [
     id: '55555555-5555-5555-5555-555555555552',
     parent_category_id: '11111111-1111-1111-1111-111111111111',
     child_category_id: '33333333-3333-3333-3333-333333333331',
+    sub_category_id: '55555555-5555-5555-5555-555555555551',
     name: 'Classic Gold Ring',
     slug: 'classic-gold-ring',
     product_code: 'SJ-GOLD-002',
@@ -37,6 +39,7 @@ const MOCK_PRODUCTS = [
     id: '55555555-5555-5555-5555-555555555553',
     parent_category_id: '22222222-2222-2222-2222-222222222222',
     child_category_id: '44444444-4444-4444-4444-444444444441',
+    sub_category_id: null,
     name: 'Elegant Silver Ring',
     slug: 'elegant-silver-ring',
     product_code: 'SJ-SILV-001',
@@ -68,7 +71,7 @@ export async function getFeaturedProducts() {
   }
 }
 
-export async function getProducts({ parentCategoryId, childCategoryId, searchQuery, sort } = {}) {
+export async function getProducts({ parentCategoryId, childCategoryId, subCategoryId, searchQuery, sort } = {}) {
   try {
     let query = supabase
       .from('products')
@@ -81,6 +84,10 @@ export async function getProducts({ parentCategoryId, childCategoryId, searchQue
     
     if (childCategoryId) {
       query = query.eq('child_category_id', childCategoryId);
+    }
+    
+    if (subCategoryId) {
+      query = query.eq('sub_category_id', subCategoryId);
     }
     
     if (searchQuery) {
@@ -122,6 +129,7 @@ export async function getProducts({ parentCategoryId, childCategoryId, searchQue
     let mock = [...MOCK_PRODUCTS];
     if (parentCategoryId) mock = mock.filter(p => p.parent_category_id === parentCategoryId);
     if (childCategoryId) mock = mock.filter(p => p.child_category_id === childCategoryId);
+    if (subCategoryId) mock = mock.filter(p => p.sub_category_id === subCategoryId);
     if (searchQuery) {
       const lower = searchQuery.toLowerCase();
       mock = mock.filter(p => p.name.toLowerCase().includes(lower) || p.product_code.toLowerCase().includes(lower));
@@ -138,7 +146,7 @@ export async function getProductBySlug(slug) {
   try {
     const { data, error } = await supabase
       .from('products')
-      .select('*, parent_categories(name), child_categories(name), product_images(*)')
+      .select('*, parent_categories(name), child_categories(name), sub_categories(name), product_images(*)')
       .eq('slug', slug)
       .eq('is_published', true)
       .single();
@@ -166,7 +174,8 @@ export async function getProductBySlug(slug) {
       return {
         ...mock,
         parent_categories: { name: mock.parent_category_id === '11111111-1111-1111-1111-111111111111' ? 'Gold' : 'Silver' },
-        child_categories: { name: 'Rings' } // Mock simplified
+        child_categories: { name: 'Rings' }, // Mock simplified
+        sub_categories: mock.sub_category_id ? { name: 'Engagement' } : null
       };
     }
     return null;
