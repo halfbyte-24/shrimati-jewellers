@@ -25,7 +25,7 @@
 .marquee-item {
   color: var(--color-secondary-light);
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.85rem; /* Reduced text size */
   letter-spacing: 0.2em;
   padding: 0 var(--spacing-lg);
   cursor: pointer;

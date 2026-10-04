@@ -32,7 +32,7 @@
   grid-template-columns: 1fr 1.2fr;
   gap: var(--spacing-3xl);
   align-items: start;
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-2xl) 0;
 }
 
 .about-image-wrap {
@@ -40,6 +40,8 @@
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   position: relative;
+  max-width: 85%;
+  margin: 0 auto;
 }
 
 .about-image-wrap::after {
@@ -53,7 +55,7 @@
 
 .about-image {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1; /* Made square to reduce height further */
   object-fit: cover;
   display: block;
 }
@@ -68,8 +70,8 @@
 
 .about-story-text {
   color: var(--color-text-muted);
-  font-size: 1.05rem;
-  line-height: 1.85;
+  font-size: 0.875rem; /* Reduced by ~18% from 1.05rem */
+  line-height: 1.7; /* Adjusted proportionally */
 }
 
 .about-story-text p {
@@ -82,7 +84,7 @@
 
 /* ── Brand Info Section ──────────────────── */
 .about-brand-section {
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-2xl) 0;
   border-top: 1px solid var(--color-border);
 }
 
@@ -102,8 +104,8 @@
 
 .about-brand-description {
   color: var(--color-text-muted);
-  font-size: 1.05rem;
-  line-height: 1.85;
+  font-size: 0.875rem;
+  line-height: 1.7;
 }
 
 .about-brand-description p {
@@ -116,7 +118,7 @@
 
 /* ── Social Presence ─────────────────────── */
 .about-social-section {
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-xl) 0;
   border-top: 1px solid var(--color-border);
   text-align: center;
 }
@@ -156,7 +158,7 @@
 
 /* ── CTA Section ─────────────────────────── */
 .about-cta-section {
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-2xl) 0;
   border-top: 1px solid var(--color-border);
   text-align: center;
 }

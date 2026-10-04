@@ -6,11 +6,11 @@ export default function CollectionHero() {
     <div className="collection-hero">
       <div className="collection-hero-bg"></div>
       <div className="container relative z-10 text-center">
-        <h1 className="text-5xl text-primary-dark font-serif mb-md">Our Collections</h1>
-        <p className="text-muted text-lg max-w-2xl mx-auto">
+        <h1 className="text-4xl text-primary-dark font-serif mb-sm">Our Collections</h1>
+        <p className="text-muted text-base max-w-2xl mx-auto">
           Discover pieces crafted to become part of your story.
         </p>
-        <div className="hero-divider mt-lg mb-lg">
+        <div className="hero-divider mt-md mb-md">
           <span className="hero-divider-line"></span>
           <span className="hero-divider-icon">✦</span>
           <span className="hero-divider-line"></span>

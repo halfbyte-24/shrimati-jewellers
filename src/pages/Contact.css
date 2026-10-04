@@ -26,6 +26,10 @@
   filter: grayscale(100%);
 }
 
+.contact-intro-text {
+  font-size: 0.925rem; /* ~18% smaller than typical text-lg (1.125rem) */
+  line-height: 1.7; /* Comfortable line-height */
+}
 /* ── Contact Grid ────────────────────────── */
 .contact-grid {
   display: grid;

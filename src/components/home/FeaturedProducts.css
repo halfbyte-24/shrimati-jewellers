@@ -2,25 +2,29 @@
   margin-bottom: var(--spacing-2xl);
 }
 
+.section.featured-products {
+  padding: clamp(24px, 4.5vh, 44px) 0; /* Slightly increased padding by ~10% for breathing room */
+}
+
 .product-scroll-container {
   overflow-x: auto;
-  padding-bottom: var(--spacing-md);
-  margin: 0 calc(var(--spacing-md) * -1);
-  padding: 0 var(--spacing-md);
+  padding-bottom: var(--spacing-sm); /* Reduced */
+  margin: 0 calc(var(--spacing-sm) * -1);
+  padding: 0 var(--spacing-sm);
 }
 
 .product-flex-grid {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 20px; /* Reduced from 24px (spacing-lg) */
   min-width: min-content;
 }
 
 .product-card {
-  width: 300px;
+  width: 250px; /* Reduced from 300px (~15%) */
   flex-shrink: 0;
   background: var(--ivory);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-sm);
+  border-radius: var(--radius-md); /* Scaled down */
+  padding: 6px; /* Scaled down */
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
@@ -38,8 +42,8 @@
   display: block;
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-md);
-  aspect-ratio: 4/5;
+  border-radius: var(--radius-sm); /* Reduced from md */
+  aspect-ratio: 1/1; /* Reduced from 4/5 to cut height by 20% while maintaining width */
   background: var(--cream);
 }
 
@@ -92,7 +96,7 @@
 }
 
 .product-info {
-  padding: var(--spacing-sm);
+  padding: 6px 4px 0 4px; /* Reduced inner vertical padding */
   display: flex;
   flex-direction: column;
   flex-grow: 1;

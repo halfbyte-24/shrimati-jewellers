@@ -1,23 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import brandLogo from '../../assets/logo.jpeg';
 import './Footer.css';
 
 export default function Footer() {
+  const [logoClicks, setLogoClicks] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (logoClicks > 0 && logoClicks < 7) {
+      const timer = setTimeout(() => setLogoClicks(0), 15000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoClicks]);
+
+  const handleLogoClick = (e) => {
+    const newCount = logoClicks + 1;
+    if (newCount >= 7) {
+      e.preventDefault();
+      setLogoClicks(0);
+      navigate('/admin/login');
+    } else {
+      setLogoClicks(newCount);
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo" aria-label="Srimati Jewelers — Home">
+            <Link to="/" className="footer-logo" aria-label="Srimati Jewelers — Home" onClick={handleLogoClick}>
               <img 
                 src={brandLogo} 
                 alt="Srimati Jewelers" 
                 className="footer-logo-img"
               />
             </Link>
-            <p className="mt-md text-sm text-muted">
+            <p className="mt-md text-xs text-muted">
               Timeless craft. Modern elegance. Discover thoughtfully crafted jewelry collections.
             </p>
           </div>
@@ -37,15 +58,15 @@ export default function Footer() {
             <ul>
               <li className="flex gap-sm mt-sm">
                 <MapPin size={18} className="text-secondary" />
-                <span className="text-sm">Uluberia, Nona, Howrah</span>
+                <span className="text-xs">Uluberia, Nona, Howrah</span>
               </li>
               <li className="flex gap-sm mt-sm">
                 <Phone size={18} className="text-secondary" />
-                <span className="text-sm">92422 76397 | 80018 76397</span>
+                <span className="text-xs">92422 76397 | 80018 76397</span>
               </li>
               <li className="flex gap-sm mt-sm">
                 <Mail size={18} className="text-secondary" />
-                <span className="text-sm">info@srimatijewelers.com</span>
+                <span className="text-xs">info@srimatijewelers.com</span>
               </li>
             </ul>
           </div>
@@ -84,7 +105,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p className="text-sm text-muted">&copy; {new Date().getFullYear()} Srimati Jewelers. All rights reserved.</p>
+          <p className="text-xs text-muted">&copy; {new Date().getFullYear()} Srimati Jewelers. All rights reserved.</p>
         </div>
       </div>
     </footer>

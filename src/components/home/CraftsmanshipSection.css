@@ -1,8 +1,7 @@
-.craftsmanship-section {
+.section.craftsmanship-section {
   position: relative;
   background-color: var(--cream);
-  padding: var(--spacing-3xl) 0;
-  min-height: clamp(500px, 55vh, 680px);
+  padding: clamp(28px, 4.5vh, 46px) 0; /* Slightly increased padding by ~10% for breathing room */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,26 +52,26 @@
 .craftsmanship-layout {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4xl);
+  gap: var(--spacing-3xl); /* Reduced from 4xl */
 }
 
 .craftsmanship-image-col {
-  width: 48%;
+  width: 40%; /* Reduced from 48% */
   flex-shrink: 0;
 }
 
 .craftsmanship-content-col {
-  width: 52%;
+  width: 48%; /* Adjusted for balance */
 }
 
 .goldsmith-img-wrap {
   position: relative;
-  border-radius: 20px;
+  border-radius: 16px; /* Reduced from 20px */
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(199, 154, 59, 0.2);
   transition: transform var(--transition-normal);
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/2; /* Reduced height by ~20% from 4/3 */
 }
 
 .goldsmith-img-wrap:hover {
