@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Hero from '../components/home/Hero';
+import OffersTicker from '../components/home/OffersTicker';
 import CategoryMarquee from '../components/home/CategoryMarquee';
 import FeaturedProducts from '../components/home/FeaturedProducts';
 import ExploreCollections from '../components/home/ExploreCollections';
@@ -13,8 +14,11 @@ export default function Home() {
 
   return (
     <div className="page-home">
-      <Hero />
-      <div className="home-content-curtain">
+      <div className="hero-overlay-container" style={{ position: 'sticky', top: 0, height: '100vh', zIndex: 0 }}>
+        <Hero />
+        <OffersTicker />
+      </div>
+      <div className="home-content-curtain" style={{ position: 'relative', zIndex: 10 }}>
         <CategoryMarquee />
         
         <ScrollReveal>
