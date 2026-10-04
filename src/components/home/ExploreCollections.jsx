@@ -35,7 +35,7 @@ export default function ExploreCollections() {
             <span className="text-sm uppercase tracking-wider text-gold mb-xs block">Explore Our</span>
             <h2 className="text-4xl md:text-5xl text-burgundy-deep font-serif m-0">Collections</h2>
           </div>
-          <Link to="/collections" className="btn btn-outline-burgundy hidden-md">
+          <Link to="/collections" className="btn btn-outline-burgundy desktop-only">
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>
         </div>
@@ -52,7 +52,7 @@ export default function ExploreCollections() {
         </div>
 
         {/* Mobile View All Button */}
-        <div className="mt-xl text-center hidden-md-up">
+        <div className="mt-xl text-center mobile-only">
           <Link to="/collections" className="btn btn-outline-burgundy">
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>

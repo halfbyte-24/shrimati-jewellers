@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { getParentCategories, getChildCategories } from '../services/categories';
+import { getParentCategories, getChildCategories, getSubCategories } from '../services/categories';
 import { getProducts } from '../services/products';
 import ProductGrid from '../components/catalog/ProductGrid';
 import CollectionHero from '../components/catalog/CollectionHero';
@@ -11,12 +11,13 @@ import ScrollReveal from '../components/common/ScrollReveal';
 import './Collections.css';
 
 export default function Collections() {
-  const { parentSlug, childSlug } = useParams();
+  const { parentSlug, childSlug, subSlug } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   
   const [parentCategories, setParentCategories] = useState([]);
   const [childCategories, setChildCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
   const [products, setProducts] = useState([]);
   
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default function Collections() {
   // Find active IDs
   const activeParent = parentCategories.find(c => c.slug === parentSlug);
   const activeChild = childCategories.find(c => c.slug === childSlug);
+  const activeSub = subCategories.find(c => c.slug === subSlug);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -37,12 +39,21 @@ export default function Collections() {
       loadChildCategories(activeParent.id);
     } else {
       setChildCategories([]);
+      setSubCategories([]);
     }
   }, [activeParent]);
 
   useEffect(() => {
+    if (activeChild) {
+      loadSubCategories(activeChild.id);
+    } else {
+      setSubCategories([]);
+    }
+  }, [activeChild]);
+
+  useEffect(() => {
     loadProducts();
-  }, [activeParent, activeChild, searchQuery, sortValue]);
+  }, [activeParent, activeChild, activeSub, searchQuery, sortValue]);
 
   async function loadInitialData() {
     setLoading(true);
@@ -56,11 +67,17 @@ export default function Collections() {
     setChildCategories(cCats);
   }
 
+  async function loadSubCategories(childId) {
+    const sCats = await getSubCategories(childId);
+    setSubCategories(sCats);
+  }
+
   async function loadProducts() {
     setLoading(true);
     const data = await getProducts({
       parentCategoryId: activeParent?.id,
       childCategoryId: activeChild?.id,
+      subCategoryId: activeSub?.id,
       searchQuery: searchQuery,
       sort: sortValue
     });
@@ -81,6 +98,14 @@ export default function Collections() {
       navigate(`/collections/${parentSlug}` + window.location.search);
     } else {
       navigate(`/collections/${parentSlug}/${slug}` + window.location.search);
+    }
+  };
+
+  const handleSubSelect = (slug) => {
+    if (slug === 'all') {
+      navigate(`/collections/${parentSlug}/${childSlug}` + window.location.search);
+    } else {
+      navigate(`/collections/${parentSlug}/${childSlug}/${slug}` + window.location.search);
     }
   };
 
@@ -109,19 +134,66 @@ export default function Collections() {
       <div className="container mt-2xl mb-4xl">
         <ScrollReveal>
           <div className="catalog-navigation-section">
-            <ParentCategoryTabs 
-              categories={parentCategories} 
-              activeSlug={parentSlug || 'all'}
-              onSelect={handleParentSelect}
-            />
-
-            {parentSlug && childCategories.length > 0 && (
-              <ChildCategoryChips 
-                categories={childCategories} 
-                activeSlug={childSlug || 'all'}
-                onSelect={handleChildSelect}
+            {/* Desktop Navigation */}
+            <div className="desktop-only" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <ParentCategoryTabs 
+                categories={parentCategories} 
+                activeSlug={parentSlug || 'all'}
+                onSelect={handleParentSelect}
               />
-            )}
+
+              {parentSlug && childCategories.length > 0 && (
+                <ChildCategoryChips 
+                  categories={childCategories} 
+                  activeSlug={childSlug || 'all'}
+                  onSelect={handleChildSelect}
+                />
+              )}
+
+              {childSlug && subCategories.length > 0 && (
+                <div style={{ marginTop: '16px' }}>
+                  <ChildCategoryChips 
+                    categories={subCategories} 
+                    activeSlug={subSlug || 'all'}
+                    onSelect={handleSubSelect}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Navigation Dropdowns */}
+            <div className="mobile-only mobile-category-nav">
+              <select 
+                className="category-select" 
+                value={parentSlug || 'all'} 
+                onChange={(e) => handleParentSelect(e.target.value)}
+              >
+                <option value="all">All Collections</option>
+                {parentCategories.map(c => <option key={c.id} value={c.slug}>{c.name}</option>)}
+              </select>
+              
+              {parentSlug && childCategories.length > 0 && (
+                <select 
+                  className="category-select" 
+                  value={childSlug || 'all'} 
+                  onChange={(e) => handleChildSelect(e.target.value)}
+                >
+                  <option value="all">All in {parentCategories.find(c => c.slug === parentSlug)?.name}</option>
+                  {childCategories.map(c => <option key={c.id} value={c.slug}>{c.name}</option>)}
+                </select>
+              )}
+
+              {childSlug && subCategories.length > 0 && (
+                <select 
+                  className="category-select" 
+                  value={subSlug || 'all'} 
+                  onChange={(e) => handleSubSelect(e.target.value)}
+                >
+                  <option value="all">All in {childCategories.find(c => c.slug === childSlug)?.name}</option>
+                  {subCategories.map(c => <option key={c.id} value={c.slug}>{c.name}</option>)}
+                </select>
+              )}
+            </div>
           </div>
         </ScrollReveal>
 

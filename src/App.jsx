@@ -32,6 +32,7 @@ function App() {
           <Route path="/collections" element={<Collections />} />
           <Route path="/collections/:parentSlug" element={<Collections />} />
           <Route path="/collections/:parentSlug/:childSlug" element={<Collections />} />
+          <Route path="/collections/:parentSlug/:childSlug/:subSlug" element={<Collections />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

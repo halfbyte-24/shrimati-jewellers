@@ -44,3 +44,16 @@
     display: none !important;
   }
 }
+
+/* Standardized responsive visibility breaking at 992px (Tablet) */
+@media (max-width: 992px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 993px) {
+  .mobile-only {
+    display: none !important;
+  }
+}

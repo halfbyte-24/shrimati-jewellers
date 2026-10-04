@@ -7,6 +7,7 @@ export default function Products() {
   const [products, setProducts] = useState([])
   const [parents, setParents] = useState([])
   const [children, setChildren] = useState([])
+  const [subs, setSubs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -24,22 +25,26 @@ export default function Products() {
     setError(null)
     try {
       // We explicitly select the required columns for categories to avoid schema cache issues
-      const [prodRes, parentRes, childRes] = await Promise.all([
+      const [prodRes, parentRes, childRes, subRes] = await Promise.all([
         supabase.from('products').select(`
           *,
           product_images(image_url, is_primary)
         `).order('display_order', { ascending: true }).order('created_at', { ascending: false }),
         supabase.from('parent_categories').select('id, name, slug, display_order, is_active'),
-        supabase.from('child_categories').select('id, parent_category_id, name, slug, display_order, is_active')
+        supabase.from('child_categories').select('id, parent_category_id, name, slug, display_order, is_active'),
+        supabase.from('sub_categories').select('id, child_category_id, name, slug, display_order, is_active')
       ])
 
       if (prodRes.error) throw new Error(`Products load error: ${prodRes.error.message}`)
       if (parentRes.error) throw new Error(`Parent load error: ${parentRes.error.message}`)
       if (childRes.error) throw new Error(`Child load error: ${childRes.error.message}`)
+      // Ignore sub error if table not created yet in dev
+      if (subRes.error && subRes.error.code !== '42P01') throw new Error(`Sub load error: ${subRes.error.message}`)
 
       setProducts(prodRes.data || [])
       setParents(parentRes.data || [])
       setChildren(childRes.data || [])
+      setSubs(subRes.data || [])
     } catch (err) {
       console.error(err)
       setError(err.message || "Failed to load data.")
@@ -87,10 +92,14 @@ export default function Products() {
   }
 
   // Render Helpers
-  const getCategoryName = (parentId, childId) => {
+  const getCategoryName = (parentId, childId, subId) => {
     const pName = parents.find(p => p.id === parentId)?.name || 'Unknown'
     const cName = children.find(c => c.id === childId)?.name || 'Unknown'
-    return `${pName} > ${cName}`
+    const sName = subs.find(s => s.id === subId)?.name
+    
+    let label = `${pName} > ${cName}`
+    if (sName) label += ` > ${sName}`
+    return label
   }
 
   const getPrimaryImage = (product) => {
@@ -209,7 +218,7 @@ export default function Products() {
                           {product.product_code && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{product.product_code}</div>}
                         </td>
                         <td style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                          {getCategoryName(product.parent_category_id, product.child_category_id)}
+                          {getCategoryName(product.parent_category_id, product.child_category_id, product.sub_category_id)}
                         </td>
                         <td>
                           {product.price ? `₹${product.price}` : <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>{product.price_type || 'N/A'}</span>}
@@ -250,6 +259,7 @@ export default function Products() {
           initialData={modalConfig.data}
           parents={parents}
           children={children}
+          subs={subs}
           onClose={closeModals}
           onSave={fetchData}
         />

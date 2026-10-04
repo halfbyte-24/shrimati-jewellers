@@ -30,7 +30,7 @@ export default function CatalogToolbar({ onSearch, sortValue, onSortChange, tota
         </form>
       </div>
 
-      <div className="toolbar-center hidden-md">
+      <div className="toolbar-center desktop-only">
         <span className="results-count">Showing {totalCount} piece{totalCount !== 1 ? 's' : ''}</span>
       </div>
 

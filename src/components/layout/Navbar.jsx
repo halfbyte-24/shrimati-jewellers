@@ -54,7 +54,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="navbar-links hidden-md">
+        <nav className="navbar-links desktop-only">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -67,7 +67,7 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="navbar-actions hidden-md">
+        <div className="navbar-actions desktop-only">
           <button className="icon-btn" aria-label="Search">
             <Search size={20} />
           </button>
@@ -76,9 +76,10 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="mobile-toggle hidden-md-up"
+          className="mobile-toggle mobile-only"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle Menu"
+          style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -86,7 +87,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="mobile-menu hidden-md-up">
+        <div className="mobile-menu mobile-only">
           <nav className="mobile-nav">
             {navLinks.map((link) => (
               <Link

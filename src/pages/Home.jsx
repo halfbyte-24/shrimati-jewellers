@@ -14,11 +14,11 @@ export default function Home() {
 
   return (
     <div className="page-home">
-      <div className="hero-overlay-container" style={{ position: 'sticky', top: 0, height: '100vh', zIndex: 0 }}>
+      <div className="hero-overlay-container">
         <Hero />
         <OffersTicker />
       </div>
-      <div className="home-content-curtain" style={{ position: 'relative', zIndex: 10 }}>
+      <div className="home-content-curtain">
         <CategoryMarquee />
         
         <ScrollReveal>

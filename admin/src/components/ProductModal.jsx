@@ -7,10 +7,11 @@ const generateSlug = (name) => {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
 }
 
-export default function ProductModal({ isOpen, onClose, onSave, mode, initialData, parents, children }) {
+export default function ProductModal({ isOpen, onClose, onSave, mode, initialData, parents, children, subs }) {
   const defaultFormData = {
     parent_category_id: '',
     child_category_id: '',
+    sub_category_id: '',
     name: '',
     slug: '',
     product_code: '',
@@ -80,8 +81,9 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
   if (!isOpen) return null
 
   // Derived state for category filtering
-  const availableChildren = children.filter(c => c.parent_category_id === formData.parent_category_id && c.is_active !== false)
   const activeParents = parents.filter(p => p.is_active !== false)
+  const availableChildren = children.filter(c => c.parent_category_id === formData.parent_category_id && c.is_active !== false)
+  const availableSubs = (subs || []).filter(s => s.child_category_id === formData.child_category_id && s.is_active !== false)
 
   const handleParentChange = (e) => {
     const newParentId = e.target.value
@@ -93,7 +95,22 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
       return {
         ...prev,
         parent_category_id: newParentId,
-        child_category_id: childValid ? prev.child_category_id : ''
+        child_category_id: childValid ? prev.child_category_id : '',
+        sub_category_id: childValid ? prev.sub_category_id : ''
+      }
+    })
+  }
+
+  const handleChildChange = (e) => {
+    const newChildId = e.target.value
+    setFormData(prev => {
+      const currentSub = (subs || []).find(s => s.id === prev.sub_category_id)
+      const subValid = currentSub && currentSub.child_category_id === newChildId
+      
+      return {
+        ...prev,
+        child_category_id: newChildId,
+        sub_category_id: subValid ? prev.sub_category_id : ''
       }
     })
   }
@@ -186,6 +203,7 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
       const {
         parent_category_id,
         child_category_id,
+        sub_category_id,
         name,
         slug,
         product_code,
@@ -208,6 +226,7 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
       const productPayload = {
         parent_category_id,
         child_category_id,
+        sub_category_id: sub_category_id || null,
         name,
         slug,
         product_code,
@@ -321,9 +340,9 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
         <div style={{ flex: 1, overflowY: 'auto', paddingRight: '10px' }}>
           {activeTab === 'details' ? (
             <div className="login-form">
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                 <div className="form-group">
-                  <label>Parent Category *</label>
+                  <label>Level 1 (Parent) *</label>
                   <select value={formData.parent_category_id} onChange={handleParentChange} required>
                     <option value="">Select Parent...</option>
                     {activeParents.map(p => (
@@ -332,16 +351,29 @@ export default function ProductModal({ isOpen, onClose, onSave, mode, initialDat
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Child Category *</label>
+                  <label>Level 2 (Child) *</label>
                   <select 
                     value={formData.child_category_id} 
-                    onChange={(e) => setFormData({...formData, child_category_id: e.target.value})} 
+                    onChange={handleChildChange} 
                     required 
                     disabled={!formData.parent_category_id}
                   >
                     <option value="">Select Child...</option>
                     {availableChildren.map(c => (
                       <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Level 3 (Sub-category)</label>
+                  <select 
+                    value={formData.sub_category_id || ''} 
+                    onChange={(e) => setFormData({...formData, sub_category_id: e.target.value})} 
+                    disabled={!formData.child_category_id || availableSubs.length === 0}
+                  >
+                    <option value="">{availableSubs.length === 0 && formData.child_category_id ? 'No subs available' : 'None / Select...'}</option>
+                    {availableSubs.map(s => (
+                      <option key={s.id} value={s.id}>{s.name}</option>
                     ))}
                   </select>
                 </div>
