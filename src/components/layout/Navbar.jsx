@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import brandLogo from '../../assets/logo.jpeg';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Reset logo clicks after 3 seconds of inactivity
+  useEffect(() => {
+    if (logoClicks > 0 && logoClicks < 7) {
+      const timer = setTimeout(() => setLogoClicks(0), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [logoClicks]);
+
+  const handleLogoClick = (e) => {
+    const newCount = logoClicks + 1;
+    if (newCount >= 7) {
+      e.preventDefault(); // Prevent navigating to "/"
+      setLogoClicks(0);
+      navigate('/admin');
+    } else {
+      setLogoClicks(newCount);
+    }
+  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -19,7 +40,12 @@ export default function Navbar() {
     <header className="navbar navbar-golden">
       <div className="container navbar-container">
         {/* Official Brand Logo */}
-        <Link to="/" className="navbar-logo" aria-label="Srimati Jewelers — Home">
+        <Link 
+          to="/" 
+          className="navbar-logo" 
+          aria-label="Srimati Jewelers — Home"
+          onClick={handleLogoClick}
+        >
           <img 
             src={brandLogo} 
             alt="Srimati Jewelers" 

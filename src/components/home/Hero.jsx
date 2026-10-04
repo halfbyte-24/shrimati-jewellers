@@ -24,14 +24,6 @@ export default function Hero() {
       </div>
 
       <div className="container hero-content text-center">
-        <div className="hero-actions flex justify-center gap-md">
-          <Link to="/collections" className="btn btn-glow">
-            EXPLORE COLLECTIONS <span className="btn-arrow">&rarr;</span>
-          </Link>
-          <Link to="/contact" className="btn btn-glass">
-            CONTACT US
-          </Link>
-        </div>
       </div>
     </section>
   );
