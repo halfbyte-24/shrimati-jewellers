@@ -1,0 +1,156 @@
+/* Shrimati Jewelers CTA System */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 32px;
+  border-radius: 4px;
+  /* Slightly rounded, not oversized */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 13px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  white-space: nowrap;
+
+  /* Shared Premium Transition */
+  transition: transform 350ms ease,
+    background-color 350ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease,
+    color 350ms ease;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Subtle sweep micro-interaction */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-20deg);
+  transition: all 500ms ease;
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  left: 150%;
+}
+
+/* Global Arrow Treatment */
+.btn-arrow {
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform 350ms ease;
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* ─────────────────────────────────────────
+   1. PRIMARY CTA (Hero Explore Collections)
+   ───────────────────────────────────────── */
+.btn-glow {
+  background-color: transparent;
+  border: 1px solid var(--gold-soft);
+  color: var(--gold-soft);
+  animation: pulse-glow 3s infinite;
+}
+
+.btn-glow:hover {
+  background-color: rgba(199, 154, 59, 0.05);
+  /* very faint gold fill */
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  box-shadow: 0 0 22px rgba(199, 154, 59, 0.2);
+  transform: translateY(-2px);
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(199, 154, 59, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 15px rgba(199, 154, 59, 0.15);
+  }
+}
+
+/* ─────────────────────────────────────────
+   2. SECONDARY CTA (Hero Contact Us)
+   ───────────────────────────────────────── */
+.btn-glass {
+  background-color: rgba(53, 7, 15, 0.4);
+  border: 1px solid var(--cream);
+  color: var(--cream);
+}
+
+.btn-glass:hover {
+  background-color: var(--burgundy);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   3. OUTLINE GOLD (Section CTAs on Dark)
+   ───────────────────────────────────────── */
+.btn-outline-gold {
+  background-color: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}
+
+.btn-outline-gold:hover {
+  background-color: var(--gold);
+  color: var(--burgundy-deep);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   4. OUTLINE BURGUNDY (Section CTAs on Light)
+   ───────────────────────────────────────── */
+.btn-outline-burgundy {
+  background-color: transparent;
+  border: 1px solid var(--burgundy);
+  color: var(--burgundy);
+}
+
+.btn-outline-burgundy:hover {
+  background-color: var(--burgundy);
+  color: var(--cream);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   Mobile Adjustments
+   ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .btn {
+    height: 46px;
+    padding: 0 24px;
+    font-size: 12px;
+  }
+}

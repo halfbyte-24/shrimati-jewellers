@@ -3,7 +3,7 @@ import Hero from '../components/home/Hero';
 import CategoryMarquee from '../components/home/CategoryMarquee';
 import FeaturedProducts from '../components/home/FeaturedProducts';
 import ExploreCollections from '../components/home/ExploreCollections';
-import BrandStory from '../components/home/BrandStory';
+import CraftsmanshipSection from '../components/home/CraftsmanshipSection';
 import ScrollReveal from '../components/common/ScrollReveal';
 
 export default function Home() {
@@ -24,9 +24,9 @@ export default function Home() {
         <ScrollReveal>
           <ExploreCollections />
         </ScrollReveal>
-        
+
         <ScrollReveal>
-          <BrandStory />
+          <CraftsmanshipSection />
         </ScrollReveal>
       </div>
     </div>

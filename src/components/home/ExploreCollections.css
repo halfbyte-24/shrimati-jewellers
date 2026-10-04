@@ -1,93 +1,53 @@
 .explore-collections {
+  position: relative;
+  overflow-x: hidden;
+  padding: var(--spacing-3xl) 0;
   background-color: var(--ivory);
 }
 
-.border-black {
-  border-color: var(--color-black);
-}
-
-.border-black:hover {
-  background-color: var(--color-black);
-  color: white;
-}
-
-.collections-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--spacing-xl);
-}
-
-.collection-card {
-  display: block;
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background-color: var(--burgundy-deep);
-  aspect-ratio: 4/3;
-  text-decoration: none;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.collection-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
-
-.collection-img-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.collection-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-slow);
-  opacity: 0.85;
-}
-
-.collection-img-wrap::after {
+/* Premium decorative luxury background */
+.explore-collections::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to top, rgba(33, 26, 22, 0.8), rgba(33, 26, 22, 0) 60%);
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background-image: url('../../assets/backgrounds/bg_explore.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  /* Keep it subtle so it doesn't overpower cards */
   pointer-events: none;
+  z-index: 0;
+
+  /* Subtle depth movement */
+  animation: bg-drift 25s ease-in-out infinite alternate;
 }
 
-.collection-card:hover .collection-img {
-  transform: scale(1.05);
+.explore-collections .container {
+  position: relative;
+  z-index: 1;
 }
 
-.collection-card-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+@keyframes bg-drift {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.05) translate(-1%, -1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-collections::before {
+    animation: none;
+  }
+}
+
+.carousel-block-full {
   width: 100%;
-  padding: var(--spacing-lg);
-  z-index: 2;
 }
 
-.collection-arrow {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-fast);
-}
-
-.collection-card:hover .collection-arrow {
-  background-color: white;
-  color: var(--color-primary);
-  border-color: white;
-}
-
-@media (max-width: 768px) {
-  /* empty */
-}
+/* Cleaned up obsolete button utility classes */

@@ -42,14 +42,16 @@
   --spacing-4xl: 8rem;
 
   /* Typography */
-  --font-serif: 'Playfair Display', serif; /* Or similar elegant serif */
+  --font-serif: 'Playfair Display', serif;
+  /* Or similar elegant serif */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-bengali: 'Noto Serif Bengali', serif; /* For Bengali text */
-  
+  --font-bengali: 'Noto Serif Bengali', serif;
+  /* For Bengali text */
+
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
-  --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
   --shadow-gold: 0 10px 25px rgba(197, 155, 76, 0.15);
 
   /* Transitions */

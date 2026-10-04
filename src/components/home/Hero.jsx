@@ -25,8 +25,12 @@ export default function Hero() {
 
       <div className="container hero-content text-center">
         <div className="hero-actions flex justify-center gap-md">
-          <Link to="/collections" className="btn btn-primary bg-secondary text-black hover-opacity">Explore Collections</Link>
-          <Link to="/contact" className="btn btn-outline text-white border-white">Contact Us</Link>
+          <Link to="/collections" className="btn btn-glow">
+            EXPLORE COLLECTIONS <span className="btn-arrow">&rarr;</span>
+          </Link>
+          <Link to="/contact" className="btn btn-glass">
+            CONTACT US
+          </Link>
         </div>
       </div>
     </section>

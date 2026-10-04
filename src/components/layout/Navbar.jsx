@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
+import brandLogo from '../../assets/logo.jpeg';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === '/';
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -16,12 +16,15 @@ export default function Navbar() {
   ];
 
   return (
-    <header className={`navbar ${isHome ? 'navbar-transparent' : 'navbar-solid'}`}>
+    <header className="navbar navbar-golden">
       <div className="container navbar-container">
-        {/* Logo */}
-        <Link to="/" className="navbar-logo">
-          <span className="font-bengali text-2xl font-bold">শ্রীমতী</span>
-          <span className="navbar-logo-sub text-sm">Jewelers</span>
+        {/* Official Brand Logo */}
+        <Link to="/" className="navbar-logo" aria-label="Srimati Jewelers — Home">
+          <img 
+            src={brandLogo} 
+            alt="Srimati Jewelers" 
+            className="navbar-logo-img"
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -30,7 +33,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               to={link.path}
-              className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+              className={`nav-link ${location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path)) ? 'active' : ''}`}
             >
               {link.name}
             </Link>
