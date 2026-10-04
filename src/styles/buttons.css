@@ -6,7 +6,8 @@
   justify-content: center;
   height: 50px;
   padding: 0 32px;
-  border-radius: 4px; /* Slightly rounded, not oversized */
+  border-radius: 4px;
+  /* Slightly rounded, not oversized */
   font-family: var(--font-sans);
   font-weight: 500;
   text-transform: uppercase;
@@ -17,13 +18,13 @@
   overflow: hidden;
   text-decoration: none;
   white-space: nowrap;
-  
+
   /* Shared Premium Transition */
   transition: transform 350ms ease,
-              background-color 350ms ease,
-              border-color 350ms ease,
-              box-shadow 350ms ease,
-              color 350ms ease;
+    background-color 350ms ease,
+    border-color 350ms ease,
+    box-shadow 350ms ease,
+    color 350ms ease;
 }
 
 .btn:active {
@@ -43,7 +44,7 @@
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
   transform: skewX(-20deg);
   transition: all 500ms ease;
   pointer-events: none;
@@ -75,7 +76,8 @@
 }
 
 .btn-glow:hover {
-  background-color: rgba(199, 154, 59, 0.05); /* very faint gold fill */
+  background-color: rgba(199, 154, 59, 0.05);
+  /* very faint gold fill */
   border-color: var(--gold-bright);
   color: var(--gold-bright);
   box-shadow: 0 0 22px rgba(199, 154, 59, 0.2);
@@ -83,9 +85,12 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 rgba(199, 154, 59, 0);
   }
+
   50% {
     box-shadow: 0 0 15px rgba(199, 154, 59, 0.15);
   }

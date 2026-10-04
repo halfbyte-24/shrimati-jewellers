@@ -23,6 +23,7 @@
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     /* Translate by exactly 50% of the duplicated track width */
     transform: translate3d(calc(-50% - (var(--spacing-lg) / 2)), 0, 0);
@@ -59,7 +60,10 @@
 
 .marquee-overlay {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(to top, rgba(18, 13, 13, 0.8) 0%, transparent 60%);
   pointer-events: none;
   transition: background var(--transition-normal);
@@ -126,6 +130,7 @@
     /* Hide scrollbar for cleaner look */
     scrollbar-width: none;
   }
+
   .collection-marquee-track::-webkit-scrollbar {
     display: none;
   }
@@ -136,10 +141,12 @@
   .marquee-card {
     width: 75vw;
   }
+
   .collection-marquee-track {
     /* Touch interaction friendly */
     animation-play-state: running;
   }
+
   .collection-marquee-track:active {
     animation-play-state: paused;
   }

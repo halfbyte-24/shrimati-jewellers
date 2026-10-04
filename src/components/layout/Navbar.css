@@ -168,6 +168,7 @@
   .navbar-logo-img {
     height: 44px;
   }
+
   .navbar {
     padding: var(--spacing-xs) var(--spacing-md);
   }
@@ -177,4 +178,4 @@
   .navbar-logo-img {
     height: 60px;
   }
-}
+}
