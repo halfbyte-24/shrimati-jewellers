@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, List, Package, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, List, Package, Settings, LogOut, Tag } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 
 export default function AdminLayout({ children }) {
@@ -18,6 +18,7 @@ export default function AdminLayout({ children }) {
   const navItems = [
     { to: '/admin/categories', icon: <List size={20} />, label: 'Categories' },
     { to: '/admin/products', icon: <Package size={20} />, label: 'Products' },
+    { to: '/admin/offers', icon: <Tag size={20} />, label: 'Offers & Discounts' },
     { to: '/admin/settings', icon: <Settings size={20} />, label: 'Settings' },
   ]
 

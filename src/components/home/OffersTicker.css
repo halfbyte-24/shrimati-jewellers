@@ -1,0 +1,81 @@
+.offers-ticker-wrapper {
+  position: absolute;
+  bottom: 40px; /* Sits just above the overlapping curtain */
+  left: 0;
+  width: 100%;
+  background-color: var(--color-secondary-light, #E8C979); /* Golden background */
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  height: 45px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.offers-ticker-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+}
+
+.offers-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+
+.offers-ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.offers-ticker-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.offers-ticker-text {
+  color: var(--burgundy-deep, #35070F);
+  font-family: var(--font-sans, sans-serif);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  font-weight: 600; /* slightly bolder for better readability on gold */
+  text-transform: uppercase;
+}
+
+.offers-ticker-separator {
+  color: var(--burgundy, #5A0B17);
+  margin: 0 2rem;
+  font-size: 1.1rem;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .offers-ticker-wrapper {
+    bottom: 40px;
+    width: 100%;
+    height: 38px;
+  }
+  .offers-ticker-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .offers-ticker-separator {
+    margin: 0 1.5rem;
+    font-size: 0.9rem;
+  }
+  .offers-ticker-track {
+    animation-duration: 25s;
+  }
+}
