@@ -5,6 +5,38 @@
   background-color: var(--ivory);
 }
 
+/* Premium decorative luxury background */
+.explore-collections::before {
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; width: 110%; height: 110%;
+  background-image: url('../../assets/backgrounds/bg_explore.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12; /* Keep it subtle so it doesn't overpower cards */
+  pointer-events: none;
+  z-index: 0;
+  
+  /* Subtle depth movement */
+  animation: bg-drift 25s ease-in-out infinite alternate;
+}
+
+.explore-collections .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bg-drift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.05) translate(-1%, -1%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-collections::before {
+    animation: none;
+  }
+}
+
 .carousel-block-full {
   width: 100%;
 }

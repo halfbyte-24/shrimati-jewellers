@@ -6,6 +6,39 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+}
+
+/* Premium artisanal luxury background */
+.craftsmanship-section::before {
+  content: '';
+  position: absolute;
+  top: -5%; left: -5%; width: 110%; height: 110%;
+  background-image: url('../../assets/backgrounds/bg_craft.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15; /* Subtle artisanal texture */
+  pointer-events: none;
+  z-index: 0;
+  
+  /* Subtle depth movement (different timing than explore section) */
+  animation: craft-bg-drift 30s ease-in-out infinite alternate;
+}
+
+.craftsmanship-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes craft-bg-drift {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1) translate(1%, 1%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .craftsmanship-section::before {
+    animation: none;
+  }
 }
 
 .craftsmanship-layout {
