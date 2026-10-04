@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import brandLogo from '../../assets/logo.jpeg';
+import { supabase } from '../../lib/supabase';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState('');
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchWhatsApp = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('store_settings')
+          .select('whatsapp')
+          .eq('id', 1)
+          .single();
+
+        if (!error && data?.whatsapp) {
+          const normalized = data.whatsapp.replace(/[\s+()\-]/g, '');
+          setWhatsappNumber(normalized);
+        }
+      } catch (err) {
+        console.error('Error fetching WhatsApp number:', err);
+      }
+    };
+    fetchWhatsApp();
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -103,12 +125,17 @@ export default function Navbar() {
           </form>
 
           {/* Enquire */}
-          <Link
-            to="/contact"
+          <a
+            href={whatsappNumber ? `https://wa.me/${whatsappNumber}` : '#'}
+            target={whatsappNumber ? '_blank' : '_self'}
+            rel="noopener noreferrer"
             className="btn btn-outline"
+            onClick={(e) => {
+              if (!whatsappNumber) e.preventDefault();
+            }}
           >
             Enquire Now
-          </Link>
+          </a>
 
         </div>
 
@@ -153,13 +180,18 @@ export default function Navbar() {
             ))}
 
             <div className="mobile-actions mt-lg">
-              <Link
-                to="/contact"
+              <a
+                href={whatsappNumber ? `https://wa.me/${whatsappNumber}` : '#'}
+                target={whatsappNumber ? '_blank' : '_self'}
+                rel="noopener noreferrer"
                 className="btn btn-enquire w-full text-center"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  if (!whatsappNumber) e.preventDefault();
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 Enquire Now
-              </Link>
+              </a>
             </div>
 
           </nav>
