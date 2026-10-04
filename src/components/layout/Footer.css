@@ -1,14 +1,14 @@
 .footer {
   background-color: var(--color-black);
   color: white;
-  padding: var(--spacing-4xl) 0 var(--spacing-md);
+  padding: var(--spacing-2xl) 0 var(--spacing-md); /* Reduced top padding */
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--spacing-xl);
-  margin-bottom: var(--spacing-3xl);
+  grid-template-columns: 1.5fr 0.8fr 1.2fr 0.8fr 1.2fr; /* 5 columns to fit the map on the same row */
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl); /* Reduced bottom margin */
 }
 
 .footer-logo {
@@ -30,7 +30,7 @@
 .footer-heading {
   color: white;
   margin-bottom: var(--spacing-lg);
-  font-size: 1.125rem;
+  font-size: 1.05rem; /* Reduced by ~5% from 1.125rem */
 }
 
 .footer-links ul {
@@ -41,7 +41,7 @@
 
 .footer-links a {
   color: var(--color-text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem; /* Reduced by ~5% from 0.95rem */
 }
 
 .footer-links a:hover {
@@ -51,6 +51,7 @@
 .social-icons a {
   color: white;
   transition: color var(--transition-fast);
+  font-size: 0.9rem;
 }
 
 .social-icons a:hover {
@@ -65,8 +66,8 @@
 
 @media (max-width: 992px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-2xl);
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-lg);
   }
 }
 

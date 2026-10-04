@@ -12,7 +12,7 @@ export default function ProductGrid({ products, loading }) {
         {[1, 2, 3, 4, 5, 6].map(i => (
           <div key={i} className="catalog-product-card skeleton">
             <div className="catalog-image-wrap skeleton-img"></div>
-            <div className="catalog-product-info mt-md">
+            <div className="catalog-product-info mt-sm">
               <div className="skeleton-line skeleton-title"></div>
               <div className="skeleton-line skeleton-meta"></div>
               <div className="skeleton-line skeleton-meta short"></div>
@@ -60,23 +60,23 @@ export default function ProductGrid({ products, loading }) {
               <span className="btn btn-outline text-white border-white">View Details</span>
             </div>
           </Link>
-          <div className="catalog-product-info mt-md">
+          <div className="catalog-product-info mt-sm">
             <div className="flex justify-between items-start mb-xs">
-              <span className="text-secondary-dark text-xs uppercase tracking-wider block">
+              <span className="catalog-product-brand text-secondary-dark uppercase tracking-wider block">
                 {product.parent_categories?.name || 'Srimati Gems'}
               </span>
               <button className="wishlist-btn" aria-label="Add to wishlist">♡</button>
             </div>
             
-            <h3 className="catalog-product-name text-lg mb-xs text-primary-dark font-serif">{product.name}</h3>
+            <h3 className="catalog-product-name mb-xs text-primary-dark font-serif">{product.name}</h3>
             
             <div className="flex justify-between items-center mt-sm">
-              <p className="text-muted text-sm font-sans">
+              <p className="catalog-product-meta text-muted font-sans">
                 {product.purity && <span>{product.purity}</span>}
                 {product.purity && product.weight_value && <span> • </span>}
                 {product.weight_value && <span>{product.weight_value} {product.weight_unit}</span>}
               </p>
-              <Link to={`/product/${product.slug}`} className="text-primary-dark arrow-icon font-sans uppercase text-xs tracking-wider">
+              <Link to={`/product/${product.slug}`} className="catalog-product-action text-primary-dark arrow-icon font-sans uppercase tracking-wider">
                 View Piece &rarr;
               </Link>
             </div>

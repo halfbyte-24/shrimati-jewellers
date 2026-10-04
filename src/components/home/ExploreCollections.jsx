@@ -30,12 +30,12 @@ export default function ExploreCollections() {
     <section className="section explore-collections">
       <div className="container">
         {/* Header */}
-        <div className="explore-header flex justify-between items-end flex-wrap gap-md mb-xl">
+        <div className="explore-header flex justify-between items-end flex-wrap gap-md mb-md">
           <div>
-            <span className="text-sm uppercase tracking-wider text-gold mb-xs block">Explore Our</span>
-            <h2 className="text-4xl md:text-5xl text-burgundy-deep font-serif m-0">Collections</h2>
+            <span className="text-xs uppercase tracking-wider text-gold mb-xs block">Explore Our</span>
+            <h2 className="text-3xl md:text-4xl text-burgundy-deep font-serif m-0">Collections</h2>
           </div>
-          <Link to="/collections" className="btn btn-outline-burgundy hidden-md">
+          <Link to="/collections" className="btn btn-outline-burgundy hidden-md" style={{ height: '42px', padding: '0 24px', fontSize: '11px' }}>
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>
         </div>
@@ -53,7 +53,7 @@ export default function ExploreCollections() {
 
         {/* Mobile View All Button */}
         <div className="mt-xl text-center hidden-md-up">
-          <Link to="/collections" className="btn btn-outline-burgundy">
+          <Link to="/collections" className="btn btn-outline-burgundy" style={{ height: '42px', padding: '0 24px', fontSize: '11px' }}>
             VIEW ALL COLLECTIONS <span className="btn-arrow">&rarr;</span>
           </Link>
         </div>

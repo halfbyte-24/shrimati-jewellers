@@ -6,28 +6,9 @@ import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [logoClicks, setLogoClicks] = useState(0);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Reset logo clicks after 3 seconds of inactivity
-  useEffect(() => {
-    if (logoClicks > 0 && logoClicks < 7) {
-      const timer = setTimeout(() => setLogoClicks(0), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [logoClicks]);
-
-  const handleLogoClick = (e) => {
-    const newCount = logoClicks + 1;
-    if (newCount >= 7) {
-      e.preventDefault(); // Prevent navigating to "/"
-      setLogoClicks(0);
-      navigate('/admin');
-    } else {
-      setLogoClicks(newCount);
-    }
-  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -44,7 +25,6 @@ export default function Navbar() {
           to="/" 
           className="navbar-logo" 
           aria-label="Srimati Jewelers — Home"
-          onClick={handleLogoClick}
         >
           <img 
             src={brandLogo} 
@@ -68,10 +48,39 @@ export default function Navbar() {
 
         {/* Desktop Actions */}
         <div className="navbar-actions hidden-md">
-          <button className="icon-btn" aria-label="Search">
-            <Search size={20} />
-          </button>
-          <Link to="/contact" className="btn btn-outline">Enquire Now</Link>
+          <form 
+            onSubmit={(e) => { 
+              e.preventDefault(); 
+              const val = e.target.q?.value?.trim(); 
+              if(val) {
+                navigate(`/collections?q=${encodeURIComponent(val)}`); 
+                setIsSearchOpen(false);
+              }
+            }} 
+            className="flex items-center gap-xs"
+          >
+            {isSearchOpen && (
+              <input 
+                name="q"
+                type="text" 
+                placeholder="Search..." 
+                className="navbar-search-input"
+                autoFocus
+                onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
+              />
+            )}
+            <button 
+              type={isSearchOpen ? "submit" : "button"} 
+              className="icon-btn" 
+              aria-label="Search"
+              onClick={() => {
+                if (!isSearchOpen) setIsSearchOpen(true);
+              }}
+            >
+              <Search size={18} />
+            </button>
+          </form>
+          <Link to="/contact" className="btn btn-enquire">Enquire Now</Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -99,7 +108,7 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="mobile-actions mt-lg">
-              <Link to="/contact" className="btn btn-primary w-full text-center" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link to="/contact" className="btn btn-enquire w-full text-center" onClick={() => setIsMobileMenuOpen(false)}>
                 Enquire Now
               </Link>
             </div>

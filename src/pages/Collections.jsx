@@ -106,7 +106,7 @@ export default function Collections() {
     <div className="page-collections bg-ivory min-h-screen">
       <CollectionHero />
 
-      <div className="container mt-2xl mb-4xl">
+      <div className="container mt-xl pb-3xl mb-xl">
         <ScrollReveal>
           <div className="catalog-navigation-section">
             <ParentCategoryTabs 

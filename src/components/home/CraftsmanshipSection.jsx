@@ -19,15 +19,15 @@ export default function CraftsmanshipSection() {
             </div>
           </div>
           <div className="craftsmanship-content-col">
-            <span className="text-sm uppercase tracking-wider text-burgundy-soft mb-sm block">Our Craft</span>
-            <h2 className="text-4xl md:text-5xl text-burgundy-deep font-serif m-0 mb-md">
+            <span className="text-xs uppercase tracking-wider text-burgundy-soft mb-xs block">Our Craft</span>
+            <h2 className="text-3xl md:text-4xl text-burgundy-deep font-serif m-0 mb-sm">
               Crafted by Hands,<br />
               Made to Last.
             </h2>
-            <p className="text-ink opacity-80 text-lg mb-lg">
+            <p className="text-ink opacity-80 text-md mb-md">
               Every piece carries the precision of skilled craftsmanship, tradition and attention to detail.
             </p>
-            <Link to="/about" className="btn btn-outline-burgundy">
+            <Link to="/about" className="btn btn-outline-burgundy" style={{ height: '42px', padding: '0 24px', fontSize: '11px' }}>
               DISCOVER OUR STORY <span className="btn-arrow">&rarr;</span>
             </Link>
           </div>

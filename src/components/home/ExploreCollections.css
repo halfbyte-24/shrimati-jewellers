@@ -1,7 +1,7 @@
-.explore-collections {
+.section.explore-collections {
   position: relative;
-  overflow-x: hidden;
-  padding: var(--spacing-3xl) 0;
+  overflow: clip; /* Fixes unwanted vertical scrollbar from overflow-x */
+  padding: clamp(24px, 4.5vh, 44px) 0; /* Slightly increased padding by ~10% for breathing room */
   background-color: var(--ivory);
 }
 

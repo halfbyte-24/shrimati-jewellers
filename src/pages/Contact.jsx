@@ -147,7 +147,7 @@ export default function Contact() {
         <div className="contact-hero-bg" aria-hidden="true"></div>
         <div className="container relative z-10 text-center">
           <h1 id="contact-heading" className="text-5xl text-primary-dark font-serif mb-md">Contact Us</h1>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
+          <p className="contact-intro-text text-muted max-w-2xl mx-auto">
             {shortDesc
               ? `We'd love to welcome you. ${shortDesc}`
               : "We'd love to welcome you to our showroom. Reach out to us anytime."

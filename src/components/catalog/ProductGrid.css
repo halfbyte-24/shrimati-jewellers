@@ -1,7 +1,7 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--spacing-xl) var(--spacing-md);
+  gap: var(--spacing-lg) var(--spacing-sm);
   perspective: 1000px;
 }
 
@@ -36,6 +36,8 @@
   border: 1px solid transparent;
   transition: all var(--transition-normal);
   will-change: transform, box-shadow;
+  width: 88%; /* Scales down the card footprint within the grid column */
+  margin: 0 auto;
 }
 
 .catalog-product-card:hover {
@@ -49,7 +51,7 @@
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-md);
-  aspect-ratio: 4/5;
+  aspect-ratio: 1 / 1; /* Reduced height from 4/5 by ~20% */
   background: var(--cream);
 }
 
@@ -84,10 +86,27 @@
 }
 
 .catalog-product-info {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-xs) 0 var(--spacing-xs);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+/* Typography Reductions for Cards */
+.catalog-product-brand {
+  font-size: 0.7rem;
+}
+
+.catalog-product-name {
+  font-size: 1rem; /* Reduced from text-lg */
+}
+
+.catalog-product-meta {
+  font-size: 0.75rem; /* Reduced from text-sm */
+}
+
+.catalog-product-action {
+  font-size: 0.65rem;
 }
 
 .wishlist-btn {
