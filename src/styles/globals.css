@@ -1,6 +1,7 @@
 @import './variables.css';
 @import './typography.css';
 @import './responsive.css';
+@import './buttons.css';
 
 * {
   margin: 0;

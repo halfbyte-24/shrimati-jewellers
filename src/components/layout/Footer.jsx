@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import brandLogo from '../../assets/logo.jpeg';
 import './Footer.css';
 
 export default function Footer() {
@@ -9,9 +10,12 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo">
-              <span className="font-bengali text-3xl font-bold">শ্রীমতী</span>
-              <span className="text-sm tracking-wider mt-sm">Jewelers</span>
+            <Link to="/" className="footer-logo" aria-label="Srimati Jewelers — Home">
+              <img 
+                src={brandLogo} 
+                alt="Srimati Jewelers" 
+                className="footer-logo-img"
+              />
             </Link>
             <p className="mt-md text-sm text-muted">
               Timeless craft. Modern elegance. Discover thoughtfully crafted jewelry collections.

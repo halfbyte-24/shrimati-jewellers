@@ -4,22 +4,16 @@
   left: 2%;
   width: 96%;
   z-index: 100;
-  transition: background-color var(--transition-normal), border-bottom var(--transition-normal);
-  padding: var(--spacing-md) var(--spacing-lg);
+  transition: background-color var(--transition-normal);
+  padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--radius-lg);
 }
 
-.navbar-transparent {
-  background-color: var(--color-secondary-light);
-  /* Golden color */
-  color: var(--color-primary-dark);
+.navbar-golden {
+  background-color: var(--gold-soft);
+  color: var(--burgundy-deep);
   box-shadow: var(--shadow-md);
-}
-
-.navbar-solid {
-  background-color: var(--color-background);
-  color: var(--color-black);
-  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--color-border-gold);
 }
 
 .navbar-container {
@@ -28,38 +22,42 @@
   align-items: center;
 }
 
+/* ──────────────────────────────────
+   Official Brand Logo (Image)
+   ────────────────────────────────── */
 .navbar-logo {
   display: flex;
-  flex-direction: column;
   align-items: center;
   text-decoration: none;
-  line-height: 1.1;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-.navbar-transparent .navbar-logo {
-  color: var(--color-primary-dark);
+.navbar-logo:hover {
+  transform: scale(1.02);
 }
 
-.navbar-solid .navbar-logo {
-  color: var(--color-primary);
+.navbar-logo-img {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
-.navbar-logo-sub {
-  font-family: var(--font-sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-}
-
+/* ──────────────────────────────────
+   Navigation Links
+   ────────────────────────────────── */
 .navbar-links {
   display: flex;
   gap: var(--spacing-xl);
+  align-items: center;
 }
 
 .nav-link {
   font-size: 0.95rem;
   font-weight: 500;
   position: relative;
+  color: var(--burgundy-deep);
 }
 
 .nav-link::after {
@@ -78,6 +76,9 @@
   width: 100%;
 }
 
+/* ──────────────────────────────────
+   Actions (Search + Enquire)
+   ────────────────────────────────── */
 .navbar-actions {
   display: flex;
   align-items: center;
@@ -124,6 +125,9 @@
   background-color: var(--color-primary-dark);
 }
 
+/* ──────────────────────────────────
+   Mobile
+   ────────────────────────────────── */
 .mobile-toggle {
   color: inherit;
 }
@@ -133,11 +137,12 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: var(--color-background);
-  color: var(--color-text-main);
+  background-color: var(--gold-soft);
+  color: var(--burgundy-deep);
   padding: var(--spacing-lg) var(--spacing-xl);
   box-shadow: var(--shadow-md);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-gold);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .mobile-nav {
@@ -149,9 +154,27 @@
 .mobile-nav-link {
   font-size: 1.125rem;
   padding: var(--spacing-sm) 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-gold);
 }
 
 .w-full {
   width: 100%;
 }
+
+/* ──────────────────────────────────
+   Responsive Logo Sizing
+   ────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar-logo-img {
+    height: 44px;
+  }
+  .navbar {
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+}
+
+@media (min-width: 1440px) {
+  .navbar-logo-img {
+    height: 60px;
+  }
+}

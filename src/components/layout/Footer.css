@@ -12,9 +12,19 @@
 }
 
 .footer-logo {
-  display: flex;
-  flex-direction: column;
-  color: var(--color-secondary);
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.footer-logo:hover {
+  transform: scale(1.02);
+}
+
+.footer-logo-img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .footer-heading {
