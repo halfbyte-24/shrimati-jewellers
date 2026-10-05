@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { useStoreSettings } from '../contexts/StoreSettingsContext';
 import ScrollReveal from '../components/common/ScrollReveal';
 import aboutImg from '../assets/about-img.jpg';
 import './About.css';
@@ -8,30 +8,11 @@ import './About.css';
 const DAYS_OF_WEEK = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export default function About() {
-  const [settings, setSettings] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { settings, loading } = useStoreSettings();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchSettings();
   }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('store_settings')
-        .select('*')
-        .eq('id', 1)
-        .single();
-
-      if (error) throw error;
-      setSettings(data);
-    } catch (err) {
-      console.error('Error fetching store settings:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -49,7 +30,7 @@ export default function About() {
   const shortDesc = settings?.short_description || '';
   const fullDesc = settings?.description || '';
 
-  const hasSocials = settings?.instagram_url || settings?.facebook_url || settings?.youtube_url || settings?.whatsapp_url;
+  const hasSocials = settings?.instagram_url || settings?.facebook_url || settings?.youtube_url || settings?.whatsapp;
 
   return (
     <div className="page-about bg-ivory">
@@ -142,8 +123,8 @@ export default function About() {
                     YouTube
                   </a>
                 )}
-                {settings?.whatsapp_url && (
-                  <a href={settings.whatsapp_url} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Chat with us on WhatsApp">
+                {settings?.whatsapp && (
+                  <a href={`https://wa.me/${settings.whatsapp.replace(/[\s+()\-]/g, '')}`} target="_blank" rel="noopener noreferrer" className="about-social-link" aria-label="Chat with us on WhatsApp">
                     WhatsApp
                   </a>
                 )}

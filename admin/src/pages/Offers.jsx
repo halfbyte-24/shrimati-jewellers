@@ -323,15 +323,15 @@ export default function Offers() {
                 <tbody>
                   {offers.map(offer => (
                     <tr key={offer.id}>
-                      <td style={{ fontWeight: 500 }}>{offer.title}</td>
-                      <td style={{ maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={offer.display_text}>
+                      <td data-label="Offer" style={{ fontWeight: 500 }}>{offer.title}</td>
+                      <td data-label="Message" style={{ maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={offer.display_text}>
                         {offer.display_text}
                       </td>
-                      <td>{getStatusDisplay(offer)}</td>
-                      <td style={{ fontSize: '0.85rem' }}>{formatDate(offer.starts_at)}</td>
-                      <td style={{ fontSize: '0.85rem' }}>{formatDate(offer.ends_at)}</td>
-                      <td>{offer.display_order}</td>
-                      <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      <td data-label="Status">{getStatusDisplay(offer)}</td>
+                      <td data-label="Start Date" style={{ fontSize: '0.85rem' }}>{formatDate(offer.starts_at)}</td>
+                      <td data-label="End Date" style={{ fontSize: '0.85rem' }}>{formatDate(offer.ends_at)}</td>
+                      <td data-label="Order">{offer.display_order}</td>
+                      <td data-label="Actions" style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                         <button className="btn-icon" title={offer.is_active ? 'Disable' : 'Enable'} onClick={() => toggleStatus(offer)}>
                           <span style={{ fontSize: '0.75rem', fontWeight: 600, color: offer.is_active ? 'var(--text-muted)' : 'var(--primary-color)', marginRight: '8px', cursor: 'pointer' }}>
                             {offer.is_active ? 'Disable' : 'Enable'}

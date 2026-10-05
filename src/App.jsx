@@ -8,16 +8,19 @@ import ProductDetails from './pages/ProductDetails';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import AdminApp from '../admin/src/AdminApp';
+import { StoreSettingsProvider } from './contexts/StoreSettingsContext';
 
 function CustomerLayout() {
   return (
-    <div className="app-container">
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <StoreSettingsProvider>
+      <div className="app-container">
+        <Navbar />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </StoreSettingsProvider>
   );
 }
 

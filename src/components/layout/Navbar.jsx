@@ -2,36 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, Menu, X } from 'lucide-react';
 import brandLogo from '../../assets/logo.jpeg';
-import { supabase } from '../../lib/supabase';
+import { useStoreSettings } from '../../contexts/StoreSettingsContext';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState('');
+  const { settings } = useStoreSettings();
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchWhatsApp = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('store_settings')
-          .select('whatsapp')
-          .eq('id', 1)
-          .single();
-
-        if (!error && data?.whatsapp) {
-          const normalized = data.whatsapp.replace(/[\s+()\-]/g, '');
-          setWhatsappNumber(normalized);
-        }
-      } catch (err) {
-        console.error('Error fetching WhatsApp number:', err);
-      }
-    };
-    fetchWhatsApp();
-  }, []);
+  const whatsappNumber = settings?.whatsapp 
+    ? settings.whatsapp.replace(/[\s+()\-]/g, '') 
+    : '';
 
   const navLinks = [
     { name: 'Home', path: '/' },

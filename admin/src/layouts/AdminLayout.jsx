@@ -1,10 +1,29 @@
-import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, List, Package, Settings, LogOut, Tag } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { LayoutDashboard, List, Package, Settings, LogOut, Tag, Menu, X } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 
 export default function AdminLayout({ children }) {
   const { logout, user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Close sidebar on route change
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location])
+
+  // Close sidebar on ESC
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMobileOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const handleLogout = async () => {
     try {
@@ -24,9 +43,19 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="admin-layout">
-      <aside className="sidebar">
+      {/* Mobile Overlay */}
+      <div 
+        className={`sidebar-overlay ${mobileOpen ? 'open' : ''}`}
+        onClick={() => setMobileOpen(false)}
+        aria-hidden="true"
+      />
+
+      <aside className={`sidebar ${mobileOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <h2>Shrimati Admin</h2>
+          <button className="mobile-close-btn" onClick={() => setMobileOpen(false)} aria-label="Close sidebar">
+            <X size={24} />
+          </button>
         </div>
         <nav className="sidebar-nav">
           {navItems.map((item) => (
@@ -53,6 +82,9 @@ export default function AdminLayout({ children }) {
       </aside>
       <main className="main-content">
         <header className="top-header">
+          <button className="mobile-menu-btn" onClick={() => setMobileOpen(true)} aria-label="Open sidebar">
+            <Menu size={24} />
+          </button>
           <h1>Admin Portal</h1>
         </header>
         <div className="page-content">

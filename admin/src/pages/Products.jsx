@@ -204,7 +204,7 @@ export default function Products() {
                     const primaryImg = getPrimaryImage(product)
                     return (
                       <tr key={product.id}>
-                        <td>
+                        <td data-label="Image">
                           {primaryImg ? (
                             <img src={primaryImg} alt={product.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }} />
                           ) : (
@@ -213,18 +213,18 @@ export default function Products() {
                             </div>
                           )}
                         </td>
-                        <td>
+                        <td data-label="Product">
                           <div style={{ fontWeight: 500 }}>{product.name}</div>
                           {product.product_code && <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{product.product_code}</div>}
                         </td>
-                        <td style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                        <td data-label="Category" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                           {getCategoryName(product.parent_category_id, product.child_category_id, product.sub_category_id)}
                         </td>
-                        <td>
+                        <td data-label="Price">
                           {product.price ? `₹${product.price}` : <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>{product.price_type || 'N/A'}</span>}
                         </td>
-                        <td>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                        <td data-label="Status">
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'flex-end' }}>
                             {product.is_published ? (
                               <span className="badge badge-active">Published</span>
                             ) : (
@@ -234,7 +234,7 @@ export default function Products() {
                             {product.is_featured && <span className="badge" style={{ backgroundColor: '#fef9c3', color: '#854d0e' }}>Featured</span>}
                           </div>
                         </td>
-                        <td style={{ textAlign: 'right' }}>
+                        <td data-label="Actions" style={{ textAlign: 'right' }}>
                           <button className="btn-secondary" style={{ padding: '6px 12px', fontSize: '0.85rem', marginRight: '8px' }} onClick={() => handleTogglePublish(product)}>
                             {product.is_published ? 'Unpublish' : 'Publish'}
                           </button>
