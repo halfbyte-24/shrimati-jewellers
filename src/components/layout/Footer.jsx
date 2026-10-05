@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import brandLogo from '../../assets/logo.jpeg';
+import { useStoreSettings } from '../../contexts/StoreSettingsContext';
 import './Footer.css';
 
 export default function Footer() {
   const [logoClicks, setLogoClicks] = useState(0);
   const navigate = useNavigate();
+  const { settings, loading } = useStoreSettings();
 
   useEffect(() => {
     if (logoClicks > 0 && logoClicks < 7) {
@@ -31,15 +33,15 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo" aria-label="Srimati Jewelers — Home" onClick={handleLogoClick}>
+            <Link to="/" className="footer-logo" aria-label={`${settings?.store_name || 'Shrimati Jewellers'} — Home`} onClick={handleLogoClick}>
               <img 
                 src={brandLogo} 
-                alt="Srimati Jewelers" 
+                alt={settings?.store_name || 'Shrimati Jewellers'} 
                 className="footer-logo-img"
               />
             </Link>
             <p className="mt-md text-xs text-muted">
-              Timeless craft. Modern elegance. Discover thoughtfully crafted jewelry collections.
+              {settings?.short_description || settings?.tagline || 'Timeless craft. Modern elegance. Discover thoughtfully crafted jewelry collections.'}
             </p>
           </div>
 
@@ -56,33 +58,55 @@ export default function Footer() {
           <div className="footer-contact">
             <h4 className="footer-heading">Contact</h4>
             <ul>
-              <li className="flex gap-sm mt-sm">
-                <MapPin size={18} className="text-secondary" />
-                <span className="text-xs">Uluberia, Nona, Howrah</span>
-              </li>
-              <li className="flex gap-sm mt-sm">
-                <Phone size={18} className="text-secondary" />
-                <span className="text-xs">92422 76397 | 80018 76397</span>
-              </li>
-              <li className="flex gap-sm mt-sm">
-                <Mail size={18} className="text-secondary" />
-                <span className="text-xs">info@srimatijewelers.com</span>
-              </li>
+              {settings?.locality && (
+                <li className="flex gap-sm mt-sm">
+                  <MapPin size={18} className="text-secondary" />
+                  <span className="text-xs">{[settings.locality, settings.city].filter(Boolean).join(', ')}</span>
+                </li>
+              )}
+              {(settings?.phone || settings?.secondary_phone) && (
+                <li className="flex gap-sm mt-sm">
+                  <Phone size={18} className="text-secondary" />
+                  <span className="text-xs">
+                    {settings.phone && (
+                      <a href={`tel:${settings.phone.replace(/[\s+()\-]/g, '')}`} style={{ color: 'inherit' }}>{settings.phone}</a>
+                    )}
+                    {settings.phone && settings.secondary_phone && ' | '}
+                    {settings.secondary_phone && (
+                      <a href={`tel:${settings.secondary_phone.replace(/[\s+()\-]/g, '')}`} style={{ color: 'inherit' }}>{settings.secondary_phone}</a>
+                    )}
+                  </span>
+                </li>
+              )}
+              {settings?.email && (
+                <li className="flex gap-sm mt-sm">
+                  <Mail size={18} className="text-secondary" />
+                  <span className="text-xs">
+                    <a href={`mailto:${settings.email}`} style={{ color: 'inherit' }}>{settings.email}</a>
+                  </span>
+                </li>
+              )}
             </ul>
           </div>
 
-          <div className="footer-social">
-            <h4 className="footer-heading">Follow Us</h4>
-            <div className="social-icons flex gap-md mt-sm">
-              <a href="#" aria-label="Instagram">Instagram</a>
-              <a href="#" aria-label="Facebook">Facebook</a>
+          {(settings?.instagram_url || settings?.facebook_url) && (
+            <div className="footer-social">
+              <h4 className="footer-heading">Follow Us</h4>
+              <div className="social-icons flex gap-md mt-sm">
+                {settings.instagram_url && (
+                  <a href={settings.instagram_url} aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+                )}
+                {settings.facebook_url && (
+                  <a href={settings.facebook_url} aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="footer-map" style={{ width: '100%', maxWidth: '300px' }}>
             <h4 className="footer-heading">Find Us</h4>
             <a 
-              href="https://www.google.com/maps/dir/?api=1&destination=Shrimati+Jewellers,+Uluberia,+West+Bengal" 
+              href={settings?.google_maps_url || "https://www.google.com/maps/dir/?api=1&destination=Shrimati+Jewellers,+Uluberia,+West+Bengal"} 
               target="_blank" 
               rel="noopener noreferrer"
               className="block"
@@ -98,14 +122,14 @@ export default function Footer() {
                 allowFullScreen="" 
                 loading="lazy" 
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="Store Location Map"
+                title={`${settings?.store_name || 'Store'} Location Map`}
               ></iframe>
             </a>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p className="text-xs text-muted">&copy; {new Date().getFullYear()} Srimati Jewelers. All rights reserved.</p>
+          <p className="text-xs text-muted">&copy; {new Date().getFullYear()} {settings?.store_name || 'Srimati Jewelers'}. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, MessageCircle, Globe, CreditCard } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { useStoreSettings } from '../contexts/StoreSettingsContext';
 import ScrollReveal from '../components/common/ScrollReveal';
 import './Contact.css';
 
@@ -66,30 +66,11 @@ function buildDirectionsUrl(settings) {
 }
 
 export default function Contact() {
-  const [settings, setSettings] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { settings, loading } = useStoreSettings();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchSettings();
   }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('store_settings')
-        .select('*')
-        .eq('id', 1)
-        .single();
-
-      if (error) throw error;
-      setSettings(data);
-    } catch (err) {
-      console.error('Error fetching store settings:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -125,7 +106,7 @@ export default function Contact() {
   const hasEmail = settings?.email || settings?.enquiry_email;
 
   // ── WhatsApp ─────────────────────────────
-  const hasWhatsApp = settings?.whatsapp || settings?.whatsapp_url;
+  const hasWhatsApp = !!settings?.whatsapp;
 
   // ── Business hours ───────────────────────
   const businessHours = settings?.business_hours || {};
@@ -218,15 +199,9 @@ export default function Contact() {
                   <div className="contact-row-content">
                     <h3>WhatsApp</h3>
                     <p>
-                      {settings.whatsapp_url ? (
-                        <a href={settings.whatsapp_url} target="_blank" rel="noopener noreferrer">
-                          {settings.whatsapp || 'Chat with us'}
-                        </a>
-                      ) : (
-                        <a href={`https://wa.me/${settings.whatsapp?.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer">
-                          {settings.whatsapp}
-                        </a>
-                      )}
+                      <a href={`https://wa.me/${settings.whatsapp?.replace(/[\s+()\-]/g, '')}`} target="_blank" rel="noopener noreferrer">
+                        {settings.whatsapp}
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -285,34 +260,51 @@ export default function Contact() {
               )}
 
               {/* Languages Spoken */}
-              <div className="contact-row">
-                <Globe className="contact-row-icon" aria-hidden="true" />
-                <div className="contact-row-content">
-                  <h3>Languages Spoken</h3>
-                  <p>English <span className="inline-divider">|</span> Hindi</p>
+              {settings?.languages_spoken && settings.languages_spoken.length > 0 && (
+                <div className="contact-row">
+                  <Globe className="contact-row-icon" aria-hidden="true" />
+                  <div className="contact-row-content">
+                    <h3>Languages Spoken</h3>
+                    <p>
+                      {settings.languages_spoken.map((lang, index) => (
+                        <React.Fragment key={index}>
+                          {lang}
+                          {index < settings.languages_spoken.length - 1 && <span className="inline-divider">|</span>}
+                        </React.Fragment>
+                      ))}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Payment Options */}
-              <div className="contact-row">
-                <CreditCard className="contact-row-icon" aria-hidden="true" />
-                <div className="contact-row-content">
-                  <h3>Payment Options</h3>
-                  <p>
-                    RTGS <span className="inline-divider">|</span> NEFT <span className="inline-divider">|</span> UPI <span className="inline-divider">|</span> Cash <span className="inline-divider">|</span> Cards<br/>
-                    Online Wallets <span className="inline-divider">|</span> Senco Gift Card
-                  </p>
+              {settings?.payment_options && settings.payment_options.length > 0 && (
+                <div className="contact-row">
+                  <CreditCard className="contact-row-icon" aria-hidden="true" />
+                  <div className="contact-row-content">
+                    <h3>Payment Options</h3>
+                    <p>
+                      {settings.payment_options.map((option, index) => (
+                        <React.Fragment key={index}>
+                          {option}
+                          {index < settings.payment_options.length - 1 && <span className="inline-divider">|</span>}
+                        </React.Fragment>
+                      ))}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Parking */}
-              <div className="contact-row">
-                <MapPin className="contact-row-icon" aria-hidden="true" />
-                <div className="contact-row-content">
-                  <h3>Parking</h3>
-                  <p>Street Parking</p>
+              {settings?.parking && (
+                <div className="contact-row">
+                  <MapPin className="contact-row-icon" aria-hidden="true" />
+                  <div className="contact-row-content">
+                    <h3>Parking</h3>
+                    <p>{settings.parking}</p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* RIGHT — Map */}
