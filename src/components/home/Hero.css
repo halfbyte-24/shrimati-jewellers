@@ -98,7 +98,8 @@
   }
   .hero-image {
     object-fit: contain;
-    /* On mobile, prefer contain to guarantee 100% artwork visibility, using burgundy background to fill differences */
+    transform: scale(0.95);
+    /* Use 0.95 -> 1.0 to create a zoom effect without pushing the text out of bounds on mobile */
   }
 }
 
