@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, MessageCircle, Globe, CreditCard } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ScrollReveal from '../components/common/ScrollReveal';
 import './Contact.css';
@@ -283,6 +283,36 @@ export default function Contact() {
                   </div>
                 </div>
               )}
+
+              {/* Languages Spoken */}
+              <div className="contact-row">
+                <Globe className="contact-row-icon" aria-hidden="true" />
+                <div className="contact-row-content">
+                  <h3>Languages Spoken</h3>
+                  <p>English <span className="inline-divider">|</span> Hindi</p>
+                </div>
+              </div>
+
+              {/* Payment Options */}
+              <div className="contact-row">
+                <CreditCard className="contact-row-icon" aria-hidden="true" />
+                <div className="contact-row-content">
+                  <h3>Payment Options</h3>
+                  <p>
+                    RTGS <span className="inline-divider">|</span> NEFT <span className="inline-divider">|</span> UPI <span className="inline-divider">|</span> Cash <span className="inline-divider">|</span> Cards<br/>
+                    Online Wallets <span className="inline-divider">|</span> Senco Gift Card
+                  </p>
+                </div>
+              </div>
+
+              {/* Parking */}
+              <div className="contact-row">
+                <MapPin className="contact-row-icon" aria-hidden="true" />
+                <div className="contact-row-content">
+                  <h3>Parking</h3>
+                  <p>Street Parking</p>
+                </div>
+              </div>
             </div>
 
             {/* RIGHT — Map */}

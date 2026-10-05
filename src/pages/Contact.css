@@ -43,7 +43,7 @@
 .contact-info-card {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xl);
+  gap: var(--spacing-xl); /* reduced from 2xl to fit more info comfortably */
 }
 
 .contact-info-card h2 {
@@ -93,6 +93,15 @@
 
 .contact-row-content a:hover {
   color: var(--color-primary);
+}
+
+/* ── Inline Divider ──────────────────────── */
+.inline-divider {
+  display: inline-block;
+  margin: 0 6px;
+  color: var(--color-border);
+  font-weight: 300;
+  opacity: 0.7;
 }
 
 /* ── Business Hours Table ────────────────── */
